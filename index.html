@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Explain Once — Prioritization Made Simple</title>
+  <style>
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      margin: 0;
+      background: #f9fafb;
+      color: #222;
+      line-height: 1.6;
+    }
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      max-width: 720px;
+      margin: auto;
+      padding: 1rem 1.5rem 3rem;
+    }
+    header {
+      padding: 3rem 0 2rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      line-height: 1.1;
+      color: #111827;
+    }
+    h2 {
+      font-size: 1.25rem;
+      color: #4b5563;
+      margin-top: 0;
+      margin-bottom: 2rem;
+    }
+    .btn-primary {
+      background-color: #2563eb;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.2s ease-in-out;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+    .btn-primary:hover {
+      background-color: #1d4ed8;
+    }
+    .btn-secondary {
+      background: none;
+      border: none;
+      color: #2563eb;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      text-decoration: underline;
+      display: inline-block;
+      margin-left: 1rem;
+    }
+    section {
+      margin-bottom: 3rem;
+    }
+    ul {
+      padding-left: 1.5rem;
+      margin-top: 0.5rem;
+      color: #374151;
+    }
+    ul li {
+      margin-bottom: 0.5rem;
+    }
+    blockquote {
+      font-style: italic;
+      color: #6b7280;
+      border-left: 4px solid #cbd5e1;
+      margin: 1rem 0 1rem 0;
+      padding-left: 1rem;
+      background: #f3f4f6;
+      border-radius: 4px;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.875rem;
+      color: #9ca3af;
+      margin-top: 2rem;
+    }
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .container {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Make the decision once.<br />Explain it to everyone.</h1>
+      <h2>
+        Product teams use us to turn a single prioritization decision into
+        stakeholder-specific explanations—without rewriting the same rationale
+        five times.
+      </h2>
+      <button class="btn-primary" onclick="alert('Feature coming soon!')">
+        Generate stakeholder explanations →
+      </button>
+      <button class="btn-secondary" onclick="alert('Demo coming soon!')">
+        See how it works (2-minute demo)
+      </button>
+    </header>
+
+    <section>
+      <h2>The problem isn’t prioritization.<br />It’s defending it.</h2>
+      <p>
+        Every week, PMs spend hours explaining the same decision to different
+        audiences:
+      </p>
+      <ul>
+        <li><strong>Leadership:</strong> strategy and risk</li>
+        <li><strong>Engineering:</strong> technical trade-offs</li>
+        <li><strong>Sales:</strong> revenue impact</li>
+        <li><strong>Customer Success:</strong> user outcomes</li>
+      </ul>
+      <p>
+        Same decision.<br />
+        Different language.<br />
+        Repeated endlessly.
+      </p>
+      <p>
+        This work doesn’t move the product forward—it just prevents confusion
+        and conflict.
+      </p>
+    </section>
+
+    <section>
+      <h2>Why this isn’t ChatGPT</h2>
+      <p><strong>ChatGPT writes text.<br />We translate decisions.</strong></p>
+      <table border="0" cellpadding="6" cellspacing="0" style="width:100%; border-collapse: collapse; margin-top: 1rem;">
+        <thead>
+          <tr style="background:#e5e7eb; text-align:left;">
+            <th style="width:50%; padding: 0.5rem;">ChatGPT</th>
+            <th style="width:50%; padding: 0.5rem;">This product</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Starts from a blank prompt</td>
+            <td>Starts from a structured decision</td>
+          </tr>
+          <tr style="background:#f9fafb;">
+            <td>No memory of strategy or roadmap</td>
+            <td>Knows your goals, constraints, and trade-offs</td>
+          </tr>
+          <tr>
+            <td>Same explanation, reworded</td>
+            <td>Audience-specific narratives</td>
+          </tr>
+          <tr style="background:#f9fafb;">
+            <td>One-off answers</td>
+            <td>Consistent explanations over time</td>
+          </tr>
+          <tr>
+            <td>No accountability</td>
+            <td>Every explanation ties back to the same logic</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>One decision. Four explanations.</h2>
+      <blockquote>
+        <strong>Leadership:</strong><br />
+        “We prioritized Feature A to support Q3 retention goals and reduce churn risk, even though Feature B had higher short-term revenue potential…”
+      </blockquote>
+      <blockquote>
+        <strong>Engineering:</strong><br />
+        “Feature A was chosen due to lower dependency risk and reuse of existing infrastructure, reducing delivery uncertainty…”
+      </blockquote>
+      <blockquote>
+        <strong>Sales:</strong><br />
+        “This choice delays Feature B revenue but unlocks stronger expansion opportunities for accounts struggling with X…”
+      </blockquote>
+      <blockquote>
+        <strong>Customer Success:</strong><br />
+        “This prioritization directly addresses the top user pain driving support tickets and churn…”
+      </blockquote>
+    </section>
+
+    <section>
+      <h2>Built for PMs in growing product teams</h2>
+      <ul>
+        <li>B2B SaaS</li>
+        <li>5–50 engineers</li>
+        <li>Multiple stakeholder groups</li>
+        <li>High communication overhead</li>
+      </ul>
+      <p>
+        If you’ve ever said<br />
+        <em>“I’ve already explained this three times”</em>—this is for you.
+      </p>
+    </section>
+
+    <section>
+      <h2>Benefits</h2>
+      <ul>
+        <li>Save 2–3 hours every week</li>
+        <li>Reduce stakeholder friction</li>
+        <li>Avoid roadmap thrash</li>
+        <li>Look decisive and aligned</li>
+        <li>Keep one source of truth for product decisions</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Objections handled</h2>
+      <p><strong>“Can’t I just use templates?”</strong><br />Templates don’t understand your trade-offs or remember past decisions.</p>
+      <p><strong>“Is this replacing my PM judgment?”</strong><br />No. It amplifies it—without watering it down.</p>
+      <p><strong>“Do I need to integrate Jira or Notion?”</strong><br />No integrations required. Start in minutes.</p>
+    </section>
+
+    <footer>
+      <p>© 2025 Explain Once. All rights reserved.</p>
+    </footer>
+  </div>
+</body>
+</html>
