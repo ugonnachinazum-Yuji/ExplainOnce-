@@ -1,408 +1,232 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ExplainOnce - Built with PMs, for PMs</title>
+<meta name="description" content="ExplainOnce — The AI-powered workspace built with product managers, for product managers. Join our private beta." />
+<meta name="robots" content="index, follow" />
+<link rel="icon" href="favicon.ico" />
+<style>
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #121212;
+    color: #e0e0e0;
+    line-height: 1.5;
+  }
+  a {
+    color: #4ade80; /* brand green */
+    text-decoration: none;
+  }
+  a:hover,
+  a:focus {
+    text-decoration: underline;
+    outline: none;
+  }
+  button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    padding: 0.7em 2em;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  button:focus {
+    outline: 3px solid #4ade80;
+    outline-offset: 2px;
+  }
+
+  /* Sticky Header */
+  header {
+    position: sticky;
+    top: 0;
+    background: #0f172a; /* dark navy */
+    color: #4ade80;
+    padding: 1em 2em;
+    font-weight: 700;
+    font-size: 1.5rem;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+  }
+
+  /* Container */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2em 1em 4em;
+  }
+
+  /* Hero */
+  .hero {
+    text-align: center;
+    padding-top: 4em;
+  }
+  .hero h1, 
+  .hero .tagline,
+  .hero button {
+    opacity: 0;
+    transform: translateY(20px);
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+  }
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 0.3em;
+    color: #4ade80; /* brand green */
+    animation-name: fadeSlideUp;
+    animation-duration: 0.7s;
+    animation-delay: 0.2s;
+  }
+  .hero .tagline {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #a3f7b5; /* lighter brand green */
+    margin-bottom: 1.5em;
+    animation-name: fadeSlideUp;
+    animation-duration: 0.7s;
+    animation-delay: 0.5s;
+  }
+  .hero button {
+    background-color: #4ade80;
+    color: #121212;
+    box-shadow: 0 3px 10px rgba(74, 222, 128, 0.5);
+    animation-name: fadeSlideUp;
+    animation-duration: 0.7s;
+    animation-delay: 0.8s;
+  }
+  .hero button:hover,
+  .hero button:focus:not(:disabled) {
+    background-color: #22c55e;
+    box-shadow: 0 5px 14px rgba(34, 197, 94, 0.7);
+  }
+  .hero button:disabled {
+    background-color: #a8d5ac;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  /* Animations */
+  @keyframes fadeSlideUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Other sections simplified for brevity */
+  #how-it-works {
+    background: #1e293b;
+    border-radius: 8px;
+    padding: 2em 1em;
+    margin: 3em 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+    color: #cbd5e1;
+  }
+  #how-it-works h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1em;
+    color: #4ade80;
+  }
+  #how-it-works .steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 1.5em;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  #how-it-works .step {
+    flex: 1 1 180px;
+    background: #334155;
+    border-radius: 6px;
+    padding: 1.5em;
+    text-align: center;
+    box-shadow: inset 0 0 10px rgb(0 0 0 / 0.2);
+  }
+  #how-it-works .step h3 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: #86efac;
+  }
+  #how-it-works .step p {
+    color: #d1fae5;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    padding: 2em 1em;
+  }
+  footer a {
+    color: #4ade80;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .hero h1 {
+      font-size: 2.2rem;
+    }
+    #how-it-works .steps {
+      flex-direction: column;
+      gap: 1em;
+    }
+    .hero button {
+      width: 100%;
+    }
+  }
+</style>
+</head>
 <body>
-    <header>
-        <div class="logo-container">
-            <svg width="180" height="80" viewBox="0 0 700 200">
-                <!-- Center hub -->
-                <circle cx="170" cy="100" r="25" fill="#1E3A8A"/>
-                
-                <!-- Top-right node (yellow) -->
-                <line x1="170" y1="100" x2="220" y2="55" stroke="#A0D468" stroke-width="8" stroke-linecap="round"/>
-                <circle cx="220" cy="55" r="16" fill="#FDE047"/>
-                
-                <!-- Right node (teal) -->
-                <line x1="170" y1="100" x2="240" y2="100" stroke="#5EEAD4" stroke-width="8" stroke-linecap="round"/>
-                <circle cx="240" cy="100" r="16" fill="#5EEAD4"/>
-                
-                <!-- Top-left node (cyan) -->
-                <line x1="170" y1="100" x2="110" y2="55" stroke="#3B82F6" stroke-width="8" stroke-linecap="round"/>
-                <circle cx="110" cy="55" r="16" fill="#60A5FA"/>
-                
-                <!-- Left node (blue) -->
-                <line x1="170" y1="100" x2="100" y2="100" stroke="#1E3A8A" stroke-width="8" stroke-linecap="round"/>
-                <circle cx="100" cy="100" r="16" fill="#3B82F6"/>
-                
-                <!-- Bottom node (dark blue) -->
-                <line x1="170" y1="100" x2="170" y2="155" stroke="#1E3A8A" stroke-width="8" stroke-linecap="round"/>
-                <circle cx="170" cy="155" r="16" fill="#1E293B"/>
-                
-                <!-- Text -->
-                <text x="280" y="115" font-family="Arial, sans-serif" font-size="65" font-weight="bold" fill="#1E293B">Explain</text>
-                <text x="520" y="115" font-family="Arial, sans-serif" font-size="65" font-weight="bold" fill="#5EEAD4">Once</text>
-                
-                <!-- Tagline -->
-                <text x="280" y="155" font-family="Arial, sans-serif" font-size="24" fill="#94A3B8">One decision. Every audience.</text>
-            </svg>
-        </div>
-    </header>
+  <header>
+    ExplainOnce
+  </header>
 
-    <section class="hero">
-        <h1>Make the decision once. Explain it to everyone.</h1>
-        <p>Turn one prioritization decision into tailored explanations for leadership, engineering, sales, and CS—in seconds.</p>
-        <div class="cta-buttons">
-            <a href="#signup" class="btn btn-primary">Join the waitlist →</a>
-            <a href="#how-it-works" class="btn btn-secondary">See how it works ↓</a>
-        </div>
-        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 1rem;">We're in private beta. Join 250+ PMs getting early access.</p>
+  <main class="container" role="main">
+    <section class="hero" aria-label="ExplainOnce introduction">
+      <h1>ExplainOnce — The AI workspace built with product managers.</h1>
+      <div class="tagline">Built with PMs, for PMs.</div>
+      <button class="btn-primary" id="join-waitlist-btn" aria-haspopup="dialog" aria-controls="waitlist-modal" aria-expanded="false">
+        Join the Private Beta
+      </button>
     </section>
 
-    <section>
-        <div class="target-audience">
-            <h3>Built for PMs in growing product teams</h3>
-            <div class="tags">
-                <span class="tag">B2B SaaS</span>
-                <span class="tag">5–50 engineers</span>
-                <span class="tag">Multiple stakeholder groups</span>
-                <span class="tag">High communication overhead</span>
-            </div>
-            <p style="font-size: 1.2rem; margin-top: 1.5rem; font-weight: 600;">If you've ever said <strong>"I've already explained this three times"</strong>—this is for you.</p>
+    <section id="how-it-works" aria-label="How ExplainOnce works">
+      <h2>How It Works</h2>
+      <div class="steps">
+        <div class="step" tabindex="0">
+          <h3>1. Connect your tools</h3>
+          <p>Link all your favorite product management tools to sync your workflow seamlessly.</p>
         </div>
+        <div class="step" tabindex="0">
+          <h3>2. Automate your processes</h3>
+          <p>Leverage AI to automate tedious tasks and get insights that matter.</p>
+        </div>
+        <div class="step" tabindex="0">
+          <h3>3. Collaborate smarter</h3>
+          <p>Work with your team efficiently using a centralized, intelligent workspace.</p>
+        </div>
+      </div>
     </section>
 
-    <section>
-        <div class="section-header">
-            <h2>The problem isn't prioritization. It's defending it.</h2>
-            <p>Every week, PMs spend hours explaining the same decision to different audiences</p>
-        </div>
-        <div class="problem-grid">
-            <div class="problem-card">
-                <h4>Leadership</h4>
-                <p>Strategy and risk</p>
-            </div>
-            <div class="problem-card">
-                <h4>Engineering</h4>
-                <p>Technical trade-offs</p>
-            </div>
-            <div class="problem-card">
-                <h4>Sales</h4>
-                <p>Revenue impact</p>
-            </div>
-            <div class="problem-card">
-                <h4>Customer Success</h4>
-                <p>User outcomes</p>
-            </div>
-        </div>
-        <div class="problem-summary">
-            <p style="font-size: 1.2rem; font-style: italic; color: var(--text-secondary);">Same decision. Different language. Repeated endlessly.</p>
-            <p style="margin-top: 1rem; color: var(--text-secondary);">This work doesn't move the product forward—it just prevents confusion and conflict.</p>
-        </div>
-    </section>
+    <!-- Waitlist modal and other content would go here -->
+  </main>
 
-    <section>
-        <div class="section-header">
-            <h2>30 minutes with ChatGPT vs. 30 seconds with ExplainOnce</h2>
-            <p>See the difference in workflow</p>
-        </div>
-        <div class="workflow-comparison">
-            <div class="workflow-side bad">
-                <div class="workflow-title">❌ The ChatGPT Way</div>
-                <div class="workflow-subtitle">Copy, paste, re-prompt, repeat...</div>
-                
-                <div class="chat-bubble user">
-                    <div class="chat-label">You:</div>
-                    <div class="chat-text">"Explain why we prioritized Feature A over Feature B"</div>
-                </div>
-                
-                <div class="chat-bubble assistant">
-                    <div class="chat-label">ChatGPT:</div>
-                    <div class="chat-text">[Generic paragraph with no context about your product or stakeholders]</div>
-                </div>
-                
-                <div class="chat-bubble user">
-                    <div class="chat-label">You:</div>
-                    <div class="chat-text">"Now rewrite that for the sales team focusing on revenue"</div>
-                </div>
-                
-                <div class="chat-bubble assistant">
-                    <div class="chat-label">ChatGPT:</div>
-                    <div class="chat-text">[You have to explain your entire context again...]</div>
-                </div>
-                
-                <div class="chat-bubble user">
-                    <div class="chat-label">You:</div>
-                    <div class="chat-text">"Now for engineering focusing on technical trade-offs..."</div>
-                </div>
-                
-                <div class="workflow-time">⏱️ 20-30 minutes per decision</div>
-            </div>
-            
-            <div class="workflow-side good">
-                <div class="workflow-title">✓ The ExplainOnce Way</div>
-                <div class="workflow-subtitle">One click. Four outputs. Done.</div>
-                
-                <div class="chat-bubble user">
-                    <div class="chat-label">You:</div>
-                    <div class="chat-text">Select: "Feature A prioritized over Feature B"</div>
-                </div>
-                
-                <div class="workflow-result">
-                    <div class="result-item">
-                        <span>Leadership version generated</span>
-                    </div>
-                    <div class="result-item">
-                        <span>Engineering version generated</span>
-                    </div>
-                    <div class="result-item">
-                        <span>Sales version generated</span>
-                    </div>
-                    <div class="result-item">
-                        <span>CS version generated</span>
-                    </div>
-                </div>
-                
-                <div style="text-align: center; margin-top: 2rem; color: var(--teal); font-size: 1.1rem;">
-                    All tailored to your product strategy, stakeholder needs, and past decisions.
-                </div>
-                
-                <div class="workflow-time">⏱️ 30 seconds</div>
-            </div>
-        </div>
-    </section>
+  <footer>
+    &copy; 2025 ExplainOnce. <a href="#">Privacy Policy</a> &amp; <a href="#">Terms of Service</a>
+  </footer>
 
-    <section id="how-it-works">
-        <div class="section-header">
-            <h2>One decision. Four explanations.</h2>
-            <p>Here's what the output actually looks like</p>
-        </div>
-        <div class="demo-grid">
-            <div class="demo-card">
-                <h4>Leadership</h4>
-                <p>"We prioritized Feature A to support Q3 retention goals and reduce churn risk, even though Feature B had higher short-term revenue potential…"</p>
-            </div>
-            <div class="demo-card">
-                <h4>Engineering</h4>
-                <p>"Feature A was chosen due to lower dependency risk and reuse of existing infrastructure, reducing delivery uncertainty…"</p>
-            </div>
-            <div class="demo-card">
-                <h4>Sales</h4>
-                <p>"This choice delays Feature B revenue but unlocks stronger expansion opportunities for accounts struggling with X…"</p>
-            </div>
-            <div class="demo-card">
-                <h4>Customer Success</h4>
-                <p>"This prioritization directly addresses the top user pain driving support tickets and churn…"</p>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <div class="section-header">
-            <h2>What changes when you use ExplainOnce</h2>
-        </div>
-        <div class="benefits-list">
-            <div class="benefit-item">
-                <p><strong>Get 2–3 hours back every week</strong></p>
-            </div>
-            <div class="benefit-item">
-                <p><strong>Stakeholders stop asking "why wasn't my thing prioritized?"</strong></p>
-            </div>
-            <div class="benefit-item">
-                <p><strong>Roadmap stays stable</strong> (less reactive thrashing)</p>
-            </div>
-            <div class="benefit-item">
-                <p><strong>You look decisive, not defensive</strong></p>
-            </div>
-            <div class="benefit-item">
-                <p><strong>One source of truth</strong> for all product decisions</p>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <div class="section-header">
-            <h2>Common questions</h2>
-        </div>
-        <div class="faq-grid">
-            <div class="faq-item">
-                <h4>"Can't I just use templates?"</h4>
-                <p>Templates don't understand your trade-offs or remember past decisions. We do.</p>
-            </div>
-            <div class="faq-item">
-                <h4>"Is this replacing my PM judgment?"</h4>
-                <p>No. It amplifies it—without watering it down.</p>
-            </div>
-            <div class="faq-item">
-                <h4>"Do I need to integrate Jira or Notion?"</h4>
-                <p>No integrations required. Start in minutes.</p>
-            </div>
-            <div class="faq-item">
-                <h4>"How much does it cost?"</h4>
-                <p>Starting at $49/month. 14-day free trial. No credit card required.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="signup">
-        <div class="signup-section">
-            <h2>Ready to stop rewriting the same explanation?</h2>
-            <p style="font-size: 1.2rem; color: var(--text-secondary); margin-top: 1rem;">Join 250+ product managers who are getting early access.</p>
-            
-            <form class="signup-form" id="emailForm">
-                <input type="email" id="emailInput" placeholder="Enter your email" required>
-                <button type="submit" class="btn btn-primary">Get early access →</button>
-            </form>
-            
-            <div class="trust-badges">
-                <span>No credit card required</span>
-                <span>14-day free trial when we launch</span>
-                <span>Cancel anytime</span>
-            </div>
-        </div>
-    </section>
-
-    <div id="surveyModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeSurvey()">&times;</button>
-            <h2 style="color: var(--teal); margin-bottom: 1rem;">✓ You're on the list!</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Help us build the perfect solution for you:</p>
-            
-            <form class="survey-form" id="surveyForm">
-                <div class="survey-question">
-                    <label>What's your role?</label>
-                    <div class="radio-group">
-                        <label class="radio-option"><input type="radio" name="role" value="Product Manager"><span>Product Manager</span></label>
-                        <label class="radio-option"><input type="radio" name="role" value="Product Owner"><span>Product Owner</span></label>
-                        <label class="radio-option"><input type="radio" name="role" value="Head of Product"><span>Head of Product</span></label>
-                        <label class="radio-option"><input type="radio" name="role" value="Engineering Manager"><span>Engineering Manager</span></label>
-                        <label class="radio-option"><input type="radio" name="role" value="Other"><span>Other</span></label>
-                    </div>
-                </div>
-
-                <div class="survey-question">
-                    <label>Hours per week explaining decisions to stakeholders?</label>
-                    <div class="radio-group">
-                        <label class="radio-option"><input type="radio" name="hours" value="Less than 1 hour"><span>Less than 1 hour</span></label>
-                        <label class="radio-option"><input type="radio" name="hours" value="1-2 hours"><span>1-2 hours</span></label>
-                        <label class="radio-option"><input type="radio" name="hours" value="3-5 hours"><span>3-5 hours</span></label>
-                        <label class="radio-option"><input type="radio" name="hours" value="5+ hours"><span>5+ hours</span></label>
-                        <label class="radio-option"><input type="radio" name="hours" value="Not sure"><span>Not sure</span></label>
-                    </div>
-                </div>
-
-                <div class="survey-question">
-                    <label>Biggest challenge with stakeholder communication?</label>
-                    <div class="radio-group">
-                        <label class="radio-option"><input type="radio" name="challenge" value="Too much time repeating"><span>Too much time repeating myself</span></label>
-                        <label class="radio-option"><input type="radio" name="challenge" value="Different formats"><span>Different stakeholders want different formats</span></label>
-                        <label class="radio-option"><input type="radio" name="challenge" value="Staying consistent"><span>Hard to stay consistent</span></label>
-                        <label class="radio-option"><input type="radio" name="challenge" value="Understanding"><span>Stakeholders don't understand my reasoning</span></label>
-                        <label class="radio-option"><input type="radio" name="challenge" value="Other"><span>Other</span></label>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit</button>
-                <button type="button" class="btn btn-secondary" style="width: 100%;" onclick="skipSurvey()">Skip →</button>
-            </form>
-        </div>
-    </div>
-
-    <div id="privacyModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('privacyModal')">&times;</button>
-            <div class="legal-content">
-                <h3>Privacy Policy</h3>
-                <p><em>Last updated: December 24, 2024</em></p>
-                <h4>What we collect</h4>
-                <p>Email address, signup date, location, survey responses (optional).</p>
-                <h4>How we use it</h4>
-                <p>Product launch notifications, feature updates, feedback requests.</p>
-                <h4>We will never</h4>
-                <ul>
-                    <li>Sell your email</li>
-                    <li>Spam you</li>
-                    <li>Share without consent</li>
-                </ul>
-                <h4>Your rights</h4>
-                <p>Unsubscribe anytime. Request deletion: hello@explainonce.com</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="termsModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('termsModal')">&times;</button>
-            <div class="legal-content">
-                <h3>Terms of Service</h3>
-                <p><em>Last updated: December 24, 2024</em></p>
-                <h4>Agreement</h4>
-                <p>By joining our waitlist, you agree to receive product updates and provide accurate information.</p>
-                <h4>Pre-launch notice</h4>
-                <p>This is a waitlist. Launch dates, features, and pricing subject to change.</p>
-                <h4>Limitation</h4>
-                <p>Website provided "as is". Not liable for issues from use.</p>
-                <p style="margin-top: 1.5rem;"><strong>Contact:</strong> hello@explainonce.com</p>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <div class="footer-links">
-            <a href="#" onclick="openModal('privacyModal'); return false;">Privacy Policy</a>
-            <a href="#" onclick="openModal('termsModal'); return false;">Terms of Service</a>
-            <a href="mailto:hello@explainonce.com">Contact</a>
-        </div>
-        <p style="color: var(--text-secondary); font-size: 0.95rem;">© 2025 ExplainOnce. All rights reserved.</p>
-    </footer>
-
-    <script>
-        document.getElementById('emailForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('emailInput').value;
-            console.log('Email:', email);
-            document.getElementById('surveyModal').classList.add('active');
-        });
-
-        document.getElementById('surveyForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const role = document.querySelector('input[name="role"]:checked')?.value;
-            const hours = document.querySelector('input[name="hours"]:checked')?.value;
-            const challenge = document.querySelector('input[name="challenge"]:checked')?.value;
-            console.log('Survey:', { role, hours, challenge });
-            document.getElementById('surveyModal').classList.remove('active');
-            alert('✓ Thank you! Check your email.');
-            document.getElementById('emailInput').value = '';
-        });
-
-        document.querySelectorAll('.radio-option').forEach(option => {
-            option.addEventListener('click', function() {
-                const radio = this.querySelector('input[type="radio"]');
-                radio.checked = true;
-                const groupName = radio.name;
-                document.querySelectorAll(`input[name="${groupName}"]`).forEach(r => {
-                    r.closest('.radio-option').classList.remove('selected');
-                });
-                this.classList.add('selected');
-            });
-        });
-
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        function closeSurvey() { document.getElementById('surveyModal').classList.remove('active'); }
-        function skipSurvey() {
-            document.getElementById('surveyModal').classList.remove('active');
-            alert('✓ You\'re on the list!');
-            document.getElementById('emailInput').value = '';
-        }
-
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', function(e) {
-                if (e.target === this) this.classList.remove('active');
-            });
-        });
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#' && !href.includes('return false')) {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        window.scrollTo({
-                            top: target.getBoundingClientRect().top + window.pageYOffset - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-            });
-        });
-    </script>
+<script>
+  // Add any modal or interactive scripts here (not included in this snippet)
+</script>
 </body>
-</html>
+                                                                         </html>
