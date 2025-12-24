@@ -3,242 +3,480 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Explain Once — Prioritization Made Simple</title>
+  <title>ProductHQ - Built by Product Managers</title>
+  <meta name="description" content="ProductHQ — The AI-powered workspace built by product managers for product managers. Join our private beta." />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" href="favicon.ico" />
   <style>
-    /* Reset */
-    *, *::before, *::after {
+    /* Reset & base */
+    * {
       box-sizing: border-box;
     }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
       margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background: #f9fafb;
-      color: #222;
-      line-height: 1.6;
+      color: #333;
+      line-height: 1.5;
     }
     a {
-      color: #2563eb;
+      color: #0078d7;
       text-decoration: none;
     }
-    a:hover {
+    a:hover,
+    a:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      padding: 0.6em 1.2em;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    button:focus {
+      outline: 3px solid #0078d7;
+      outline-offset: 2px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5em 1em;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 3em 1em 2em;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.3em;
+      color: #111;
+    }
+    .hero .tagline {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 1.5em;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background-color: #0078d7;
+      color: white;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      padding: 0.7em 2em;
+      box-shadow: 0 3px 7px rgb(0 120 215 / 0.3);
+      user-select: none;
+    }
+    .btn-primary:hover,
+    .btn-primary:focus:not(:disabled) {
+      background-color: #005ea1;
+      box-shadow: 0 5px 10px rgb(0 94 161 / 0.5);
+    }
+    .btn-primary:disabled {
+      background-color: #8ab4f8;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .btn-link {
+      background: none;
+      color: #0078d7;
+      font-size: 1rem;
+      padding: 0;
+      margin-left: 1em;
+      vertical-align: middle;
+    }
+    .btn-link:hover,
+    .btn-link:focus {
       text-decoration: underline;
     }
-    .container {
-      max-width: 720px;
-      margin: auto;
-      padding: 1rem 1.5rem 3rem;
+
+    /* Section: How it Works */
+    #how-it-works {
+      background: #fff;
+      border-radius: 8px;
+      padding: 2em 1em;
+      margin: 2em 0;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
     }
-    header {
-      padding: 3rem 0 2rem;
+    #how-it-works h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1em;
+      color: #222;
+    }
+    #how-it-works .steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 1.5em;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    #how-it-works .step {
+      flex: 1 1 180px;
+      background: #f4f6f8;
+      border-radius: 6px;
+      padding: 1.2em;
+      text-align: center;
+      box-shadow: inset 0 0 5px rgb(0 0 0 / 0.05);
+    }
+    #how-it-works .step h3 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      color: #0078d7;
+    }
+
+    /* Testimonials */
+    #testimonials {
+      background: #f0f4f8;
+      padding: 2em 1em;
+      border-radius: 8px;
+      margin: 2em 0;
+    }
+    #testimonials h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1em;
+      color: #222;
+    }
+    #testimonials blockquote {
+      max-width: 600px;
+      margin: 1em auto;
+      font-style: italic;
+      color: #555;
+      position: relative;
+      padding-left: 1.2em;
+      border-left: 4px solid #0078d7;
+    }
+    #testimonials blockquote footer {
+      margin-top: 0.5em;
+      font-weight: 600;
+      font-style: normal;
+      color: #333;
+      text-align: right;
+    }
+
+    /* Form */
+    form {
+      margin: 1em 0;
       text-align: center;
     }
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 0.3rem;
-      line-height: 1.1;
-      color: #111827;
-    }
-    h2 {
-      font-size: 1.25rem;
-      color: #4b5563;
-      margin-top: 0;
-      margin-bottom: 2rem;
-    }
-    .btn-primary {
-      background-color: #2563eb;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+    input[type="email"],
+    input[type="text"] {
       font-size: 1rem;
-      transition: background-color 0.2s ease-in-out;
-      display: inline-block;
-      margin-bottom: 1rem;
-    }
-    .btn-primary:hover {
-      background-color: #1d4ed8;
-    }
-    .btn-secondary {
-      background: none;
-      border: none;
-      color: #2563eb;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 1rem;
-      text-decoration: underline;
-      display: inline-block;
-      margin-left: 1rem;
-    }
-    section {
-      margin-bottom: 3rem;
-    }
-    ul {
-      padding-left: 1.5rem;
-      margin-top: 0.5rem;
-      color: #374151;
-    }
-    ul li {
-      margin-bottom: 0.5rem;
-    }
-    blockquote {
-      font-style: italic;
-      color: #6b7280;
-      border-left: 4px solid #cbd5e1;
-      margin: 1rem 0 1rem 0;
-      padding-left: 1rem;
-      background: #f3f4f6;
+      padding: 0.6em 1em;
+      border: 1px solid #ccc;
       border-radius: 4px;
+      width: 100%;
+      max-width: 320px;
+      margin-bottom: 0.4em;
+      transition: border-color 0.3s ease;
     }
+    input[type="email"]:focus,
+    input[type="text"]:focus {
+      border-color: #0078d7;
+      outline: none;
+      box-shadow: 0 0 5px #0078d7aa;
+    }
+    .form-error {
+      color: #cc0000;
+      font-size: 0.9rem;
+      margin-top: -0.4em;
+      margin-bottom: 0.8em;
+    }
+
+    /* Footer */
     footer {
       text-align: center;
-      font-size: 0.875rem;
-      color: #9ca3af;
-      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+      padding: 1.5em 1em;
     }
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 2rem;
+    footer a {
+      color: #0078d7;
+    }
+
+    /* Modal Overlay */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal {
+      background: white;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      border-radius: 8px;
+      padding: 1.5em 2em 2em;
+      position: relative;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+    .modal h2 {
+      margin-top: 0;
+      font-size: 1.8rem;
+      color: #222;
+    }
+    .modal p {
+      font-size: 1rem;
+      line-height: 1.4;
+      color: #444;
+    }
+    .modal .close-btn {
+      position: absolute;
+      top: 0.5em;
+      right: 0.5em;
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      line-height: 1;
+      color: #999;
+      cursor: pointer;
+    }
+    .modal .close-btn:hover,
+    .modal .close-btn:focus {
+      color: #333;
+      outline: none;
+    }
+    /* Modal scroll */
+    .modal-content {
+      max-height: 60vh;
+      overflow-y: auto;
+      padding-right: 0.5em;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2.2rem;
       }
-      .container {
-        padding: 1rem;
+      #how-it-works .steps {
+        flex-direction: column;
+        gap: 1em;
+      }
+      input[type="email"],
+      input[type="text"] {
+        max-width: 100%;
+      }
+      .btn-primary {
+        width: 100%;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Make the decision once.<br />Explain it to everyone.</h1>
-      <h2>
-        Product teams use us to turn a single prioritization decision into
-        stakeholder-specific explanations—without rewriting the same rationale
-        five times.
-      </h2>
-      <button class="btn-primary" onclick="alert('Feature coming soon!')">
-        Generate stakeholder explanations →
+  <main class="container" role="main">
+
+    <section class="hero" aria-label="ProductHQ introduction">
+      <h1>ProductHQ — The AI workspace built by product managers for product managers.</h1>
+      <div class="tagline" aria-live="polite">Built by Product Managers, for Product Managers.</div>
+      <button class="btn-primary" id="join-waitlist-btn" aria-haspopup="dialog" aria-controls="waitlist-modal" aria-expanded="false">
+        Join the Private Beta
       </button>
-      <button class="btn-secondary" onclick="alert('Demo coming soon!')">
-        See how it works (2-minute demo)
+      <button class="btn-link" id="see-how-it-works-btn" aria-haspopup="dialog" aria-controls="how-it-works-modal" aria-expanded="false">
+        See how it works →
       </button>
-    </header>
-
-    <section>
-      <h2>The problem isn’t prioritization.<br />It’s defending it.</h2>
-      <p>
-        Every week, PMs spend hours explaining the same decision to different
-        audiences:
-      </p>
-      <ul>
-        <li><strong>Leadership:</strong> strategy and risk</li>
-        <li><strong>Engineering:</strong> technical trade-offs</li>
-        <li><strong>Sales:</strong> revenue impact</li>
-        <li><strong>Customer Success:</strong> user outcomes</li>
-      </ul>
-      <p>
-        Same decision.<br />
-        Different language.<br />
-        Repeated endlessly.
-      </p>
-      <p>
-        This work doesn’t move the product forward—it just prevents confusion
-        and conflict.
-      </p>
     </section>
 
-    <section>
-      <h2>Why this isn’t ChatGPT</h2>
-      <p><strong>ChatGPT writes text.<br />We translate decisions.</strong></p>
-      <table border="0" cellpadding="6" cellspacing="0" style="width:100%; border-collapse: collapse; margin-top: 1rem;">
-        <thead>
-          <tr style="background:#e5e7eb; text-align:left;">
-            <th style="width:50%; padding: 0.5rem;">ChatGPT</th>
-            <th style="width:50%; padding: 0.5rem;">This product</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Starts from a blank prompt</td>
-            <td>Starts from a structured decision</td>
-          </tr>
-          <tr style="background:#f9fafb;">
-            <td>No memory of strategy or roadmap</td>
-            <td>Knows your goals, constraints, and trade-offs</td>
-          </tr>
-          <tr>
-            <td>Same explanation, reworded</td>
-            <td>Audience-specific narratives</td>
-          </tr>
-          <tr style="background:#f9fafb;">
-            <td>One-off answers</td>
-            <td>Consistent explanations over time</td>
-          </tr>
-          <tr>
-            <td>No accountability</td>
-            <td>Every explanation ties back to the same logic</td>
-          </tr>
-        </tbody>
-      </table>
+    <section id="how-it-works" aria-label="How ProductHQ works" hidden>
+      <h2>How It Works</h2>
+      <div class="steps">
+        <div class="step" tabindex="0">
+          <h3>1. Connect your tools</h3>
+          <p>Link all your favorite product management tools to sync your workflow seamlessly.</p>
+        </div>
+        <div class="step" tabindex="0">
+          <h3>2. Automate your processes</h3>
+          <p>Leverage AI to automate tedious tasks and get insights that matter.</p>
+        </div>
+        <div class="step" tabindex="0">
+          <h3>3. Collaborate smarter</h3>
+          <p>Work with your team efficiently using a centralized, intelligent workspace.</p>
+        </div>
+      </div>
     </section>
 
-    <section>
-      <h2>One decision. Four explanations.</h2>
-      <blockquote>
-        <strong>Leadership:</strong><br />
-        “We prioritized Feature A to support Q3 retention goals and reduce churn risk, even though Feature B had higher short-term revenue potential…”
+    <section id="testimonials" aria-label="User testimonials" hidden>
+      <h2>What Early Users Say</h2>
+      <blockquote tabindex="0">
+        “ProductHQ has transformed how our team manages projects — finally a tool built by PMs who understand our needs.”
+        <footer>— Alex R., Senior Product Manager</footer>
       </blockquote>
-      <blockquote>
-        <strong>Engineering:</strong><br />
-        “Feature A was chosen due to lower dependency risk and reuse of existing infrastructure, reducing delivery uncertainty…”
-      </blockquote>
-      <blockquote>
-        <strong>Sales:</strong><br />
-        “This choice delays Feature B revenue but unlocks stronger expansion opportunities for accounts struggling with X…”
-      </blockquote>
-      <blockquote>
-        <strong>Customer Success:</strong><br />
-        “This prioritization directly addresses the top user pain driving support tickets and churn…”
+      <blockquote tabindex="0">
+        “The AI-driven automation saves me hours every week. I’m excited for the full launch!”
+        <footer>— Jamie L., Product Owner</footer>
       </blockquote>
     </section>
 
-    <section>
-      <h2>Built for PMs in growing product teams</h2>
-      <ul>
-        <li>B2B SaaS</li>
-        <li>5–50 engineers</li>
-        <li>Multiple stakeholder groups</li>
-        <li>High communication overhead</li>
-      </ul>
-      <p>
-        If you’ve ever said<br />
-        <em>“I’ve already explained this three times”</em>—this is for you.
-      </p>
-    </section>
+    <!-- Waitlist Modal -->
+    <div class="modal-overlay" id="waitlist-modal" role="dialog" aria-modal="true" aria-labelledby="waitlist-title" tabindex="-1">
+      <div class="modal" role="document">
+        <button class="close-btn" aria-label="Close waitlist form">&times;</button>
+        <h2 id="waitlist-title">Join the Private Beta</h2>
+        <form id="waitlist-form" novalidate>
+          <label for="email-input">Email Address</label><br />
+          <input
+            type="email"
+            id="email-input"
+            name="email"
+            placeholder="you@example.com"
+            required
+            aria-describedby="email-error"
+          />
+          <div class="form-error" id="email-error" aria-live="assertive" style="display:none;"></div>
+          <br />
+          <button type="submit" class="btn-primary" id="waitlist-submit-btn">Submit</button>
+        </form>
+        <div id="waitlist-success-message" role="alert" aria-live="polite" style="display:none; margin-top: 1em; font-weight: 600; color: green;">
+          Thank you! You’ve been added to the waitlist.
+        </div>
+      </div>
+    </div>
 
-    <section>
-      <h2>Benefits</h2>
-      <ul>
-        <li>Save 2–3 hours every week</li>
-        <li>Reduce stakeholder friction</li>
-        <li>Avoid roadmap thrash</li>
-        <li>Look decisive and aligned</li>
-        <li>Keep one source of truth for product decisions</li>
-      </ul>
-    </section>
+    <!-- How It Works Modal -->
+    <div class="modal-overlay" id="how-it-works-modal" role="dialog" aria-modal="true" aria-labelledby="how-it-works-title" tabindex="-1" hidden>
+      <div class="modal" role="document">
+        <button class="close-btn" aria-label="Close how it works information">&times;</button>
+        <h2 id="how-it-works-title">How ProductHQ Works</h2>
+        <div class="modal-content">
+          <p>ProductHQ connects your product management tools, automates workflows, and helps your team collaborate smarter with AI-powered features.</p>
+          <p>Our private beta lets you experience the core features before anyone else.</p>
+          <button id="see-testimonials-btn" class="btn-link" aria-controls="testimonials" aria-expanded="false">See what early users say →</button>
+        </div>
+      </div>
+    </div>
 
-    <section>
-      <h2>Objections handled</h2>
-      <p><strong>“Can’t I just use templates?”</strong><br />Templates don’t understand your trade-offs or remember past decisions.</p>
-      <p><strong>“Is this replacing my PM judgment?”</strong><br />No. It amplifies it—without watering it down.</p>
-      <p><strong>“Do I need to integrate Jira or Notion?”</strong><br />No integrations required. Start in minutes.</p>
+    <!-- Testimonials Section (shown inside modal or inline) -->
+    <section id="testimonials-inline" hidden>
+      <h2>Testimonials</h2>
+      <blockquote>
+        “ProductHQ has transformed how our team manages projects — finally a tool built by PMs who understand our needs.”
+        <footer>— Alex R., Senior Product Manager</footer>
+      </blockquote>
+      <blockquote>
+        “The AI-driven automation saves me hours every week. I’m excited for the full launch!”
+        <footer>— Jamie L., Product Owner</footer>
+      </blockquote>
     </section>
 
     <footer>
-      <p>© 2025 Explain Once. All rights reserved.</p>
+      <p>
+        &copy; 2025 ProductHQ. <a href="#" id="privacy-link">Privacy Policy</a> &amp; <a href="#" id="terms-link">Terms of Service</a>
+      </p>
     </footer>
-  </div>
-</body>
-</html>
+
+    <!-- Privacy Modal -->
+    <div class="modal-overlay" id="privacy-modal" role="dialog" aria-modal="true" aria-labelledby="privacy-title" tabindex="-1" hidden>
+      <div class="modal" role="document">
+        <button class="close-btn" aria-label="Close privacy policy">&times;</button>
+        <h2 id="privacy-title">Privacy Policy</h2>
+        <div class="modal-content">
+          <p>Your privacy is important to us. We collect minimal data to provide the best experience.</p>
+          <p>We do not sell your data. For more information, contact us.</p>
+          <button id="privacy-to-terms" class="btn-link" aria-controls="terms-modal" aria-expanded="false">View Terms of Service →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terms Modal -->
+    <div class="modal-overlay" id="terms-modal" role="dialog" aria-modal="true" aria-labelledby="terms-title" tabindex="-1" hidden>
+      <div class="modal" role="document">
+        <button class="close-btn" aria-label="Close terms of service">&times;</button>
+        <h2 id="terms-title">Terms of Service</h2>
+        <div class="modal-content">
+          <p>By using ProductHQ, you agree to our terms outlined here.</p>
+          <button id="terms-to-privacy" class="btn-link" aria-controls="privacy-modal" aria-expanded="false">View Privacy Policy →</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Utility to trap focus inside modal
+    function trapFocus(element) {
+      const focusableElementsString = `
+        a[href], area[href], input:not([disabled]), select:not([disabled]), 
+        textarea:not([disabled]), button:not([disabled]), iframe, object, embed, 
+        [tabindex="0"], [contenteditable]
+      `;
+      const focusableElements = element.querySelectorAll(focusableElementsString);
+      const firstFocusable = focusableElements[0];
+      const lastFocusable = focusableElements[focusableElements.length - 1];
+
+      function handleKey(e) {
+        if (e.key === "Tab" || e.keyCode === 9) {
+          if (e.shiftKey) {
+            if (document.activeElement === firstFocusable) {
+              e.preventDefault();
+              lastFocusable.focus();
+            }
+          } else {
+            if (document.activeElement === lastFocusable) {
+              e.preventDefault();
+              firstFocusable.focus();
+            }
+          }
+        }
+        if (e.key === "Escape") {
+          closeModal(element.parentElement);
+        }
+      }
+      element.addEventListener("keydown", handleKey);
+
+      // Focus first focusable element
+      firstFocusable?.focus();
+
+      return () => {
+        element.removeEventListener("keydown", handleKey);
+      };
+    }
+
+    // Modal open/close helpers
+    const modals = {
+      waitlist: document.getElementById("waitlist-modal"),
+      howItWorks: document.getElementById("how-it-works-modal"),
+      privacy: document.getElementById("privacy-modal"),
+      terms: document.getElementById("terms-modal"),
+    };
+
+    const openButtons = {
+      waitlist: document.getElementById("join-waitlist-btn"),
+      howItWorks: document.getElementById("see-how-it-works-btn"),
+      privacy: document.getElementById("privacy-link"),
+      terms: document.getElementById("terms-link"),
+    };
+
+    let activeTrapFocusCleanup = null;
+
+    function openModal(modal) {
+      if (!modal) return;
+      modal.classList.add("active");
+      modal.removeAttribute("hidden");
+      modal.querySelector(".modal").focus();
+      modal.setAttribute("aria-hidden", "false");
+      if (activeTrapFocusCleanup) activeTrapFocusCleanup();
+      activeTrapFocusCleanup = trapFocus(modal.querySelector(".modal"));
+    }
+
+    function closeModal(modal) {
+      if (!modal) return;
+      modal.classList.remove("active");
+      modal.setAttribute("hidden", "");
+      modal
