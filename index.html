@@ -1,499 +1,408 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ProductHQ - Built by Product Managers</title>
-  <meta name="description" content="ProductHQ — The AI-powered workspace built by product managers for product managers. Join our private beta." />
-  <meta name="robots" content="index, follow" />
-  <link rel="icon" href="favicon.ico" />
-  <style>
-    /* Reset & base */
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f9fafb;
-      color: #333;
-      line-height: 1.5;
-    }
-    a {
-      color: #0078d7;
-      text-decoration: none;
-    }
-    a:hover,
-    a:focus {
-      text-decoration: underline;
-      outline: none;
-    }
-    button {
-      font-family: inherit;
-      cursor: pointer;
-      border: none;
-      border-radius: 4px;
-      padding: 0.6em 1.2em;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-    }
-    button:focus {
-      outline: 3px solid #0078d7;
-      outline-offset: 2px;
-    }
-
-    /* Container */
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 1.5em 1em;
-    }
-
-    /* Hero */
-    .hero {
-      text-align: center;
-      padding: 3em 1em 2em;
-    }
-    .hero h1 {
-      font-size: 2.8rem;
-      margin-bottom: 0.3em;
-      color: #111;
-    }
-    .hero .tagline {
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: #555;
-      margin-bottom: 1.5em;
-    }
-
-    /* Buttons */
-    .btn-primary {
-      background-color: #0078d7;
-      color: white;
-      font-size: 1.1rem;
-      border-radius: 6px;
-      padding: 0.7em 2em;
-      box-shadow: 0 3px 7px rgb(0 120 215 / 0.3);
-      user-select: none;
-    }
-    .btn-primary:hover,
-    .btn-primary:focus:not(:disabled) {
-      background-color: #005ea1;
-      box-shadow: 0 5px 10px rgb(0 94 161 / 0.5);
-    }
-    .btn-primary:disabled {
-      background-color: #8ab4f8;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-
-    .btn-link {
-      background: none;
-      color: #0078d7;
-      font-size: 1rem;
-      padding: 0;
-      margin-left: 1em;
-      vertical-align: middle;
-    }
-    .btn-link:hover,
-    .btn-link:focus {
-      text-decoration: underline;
-    }
-
-    /* Section: How it Works */
-    #how-it-works {
-      background: #fff;
-      border-radius: 8px;
-      padding: 2em 1em;
-      margin: 2em 0;
-      box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
-    }
-    #how-it-works h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 1em;
-      color: #222;
-    }
-    #how-it-works .steps {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      gap: 1.5em;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    #how-it-works .step {
-      flex: 1 1 180px;
-      background: #f4f6f8;
-      border-radius: 6px;
-      padding: 1.2em;
-      text-align: center;
-      box-shadow: inset 0 0 5px rgb(0 0 0 / 0.05);
-    }
-    #how-it-works .step h3 {
-      margin-top: 0;
-      font-size: 1.2rem;
-      color: #0078d7;
-    }
-
-    /* Testimonials */
-    #testimonials {
-      background: #f0f4f8;
-      padding: 2em 1em;
-      border-radius: 8px;
-      margin: 2em 0;
-    }
-    #testimonials h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 1em;
-      color: #222;
-    }
-    #testimonials blockquote {
-      max-width: 600px;
-      margin: 1em auto;
-      font-style: italic;
-      color: #555;
-      position: relative;
-      padding-left: 1.2em;
-      border-left: 4px solid #0078d7;
-    }
-    #testimonials blockquote footer {
-      margin-top: 0.5em;
-      font-weight: 600;
-      font-style: normal;
-      color: #333;
-      text-align: right;
-    }
-
-    /* Form */
-    form {
-      margin: 1em 0;
-      text-align: center;
-    }
-    input[type="email"],
-    input[type="text"] {
-      font-size: 1rem;
-      padding: 0.6em 1em;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      width: 100%;
-      max-width: 320px;
-      margin-bottom: 0.4em;
-      transition: border-color 0.3s ease;
-    }
-    input[type="email"]:focus,
-    input[type="text"]:focus {
-      border-color: #0078d7;
-      outline: none;
-      box-shadow: 0 0 5px #0078d7aa;
-    }
-    .form-error {
-      color: #cc0000;
-      font-size: 0.9rem;
-      margin-top: -0.4em;
-      margin-bottom: 0.8em;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #666;
-      padding: 1.5em 1em;
-    }
-    footer a {
-      color: #0078d7;
-    }
-
-    /* Modal Overlay */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    .modal-overlay.active {
-      display: flex;
-    }
-    .modal {
-      background: white;
-      max-width: 600px;
-      max-height: 80vh;
-      overflow-y: auto;
-      border-radius: 8px;
-      padding: 1.5em 2em 2em;
-      position: relative;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-    .modal h2 {
-      margin-top: 0;
-      font-size: 1.8rem;
-      color: #222;
-    }
-    .modal p {
-      font-size: 1rem;
-      line-height: 1.4;
-      color: #444;
-    }
-    .modal .close-btn {
-      position: absolute;
-      top: 0.5em;
-      right: 0.5em;
-      background: transparent;
-      border: none;
-      font-size: 1.5rem;
-      line-height: 1;
-      color: #999;
-      cursor: pointer;
-    }
-    .modal .close-btn:hover,
-    .modal .close-btn:focus {
-      color: #333;
-      outline: none;
-    }
-    /* Modal scroll */
-    .modal-content {
-      max-height: 60vh;
-      overflow-y: auto;
-      padding-right: 0.5em;
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 2.2rem;
-      }
-      #how-it-works .steps {
-        flex-direction: column;
-        gap: 1em;
-      }
-      input[type="email"],
-      input[type="text"] {
-        max-width: 100%;
-      }
-      .btn-primary {
-        width: 100%;
-      }
-    }
-  </style>
-</head>
 <body>
-  <main class="container" role="main">
+    <header>
+        <div class="logo-container">
+            <svg width="180" height="80" viewBox="0 0 700 200">
+                <!-- Center hub -->
+                <circle cx="170" cy="100" r="25" fill="#1E3A8A"/>
+                
+                <!-- Top-right node (yellow) -->
+                <line x1="170" y1="100" x2="220" y2="55" stroke="#A0D468" stroke-width="8" stroke-linecap="round"/>
+                <circle cx="220" cy="55" r="16" fill="#FDE047"/>
+                
+                <!-- Right node (teal) -->
+                <line x1="170" y1="100" x2="240" y2="100" stroke="#5EEAD4" stroke-width="8" stroke-linecap="round"/>
+                <circle cx="240" cy="100" r="16" fill="#5EEAD4"/>
+                
+                <!-- Top-left node (cyan) -->
+                <line x1="170" y1="100" x2="110" y2="55" stroke="#3B82F6" stroke-width="8" stroke-linecap="round"/>
+                <circle cx="110" cy="55" r="16" fill="#60A5FA"/>
+                
+                <!-- Left node (blue) -->
+                <line x1="170" y1="100" x2="100" y2="100" stroke="#1E3A8A" stroke-width="8" stroke-linecap="round"/>
+                <circle cx="100" cy="100" r="16" fill="#3B82F6"/>
+                
+                <!-- Bottom node (dark blue) -->
+                <line x1="170" y1="100" x2="170" y2="155" stroke="#1E3A8A" stroke-width="8" stroke-linecap="round"/>
+                <circle cx="170" cy="155" r="16" fill="#1E293B"/>
+                
+                <!-- Text -->
+                <text x="280" y="115" font-family="Arial, sans-serif" font-size="65" font-weight="bold" fill="#1E293B">Explain</text>
+                <text x="520" y="115" font-family="Arial, sans-serif" font-size="65" font-weight="bold" fill="#5EEAD4">Once</text>
+                
+                <!-- Tagline -->
+                <text x="280" y="155" font-family="Arial, sans-serif" font-size="24" fill="#94A3B8">One decision. Every audience.</text>
+            </svg>
+        </div>
+    </header>
 
-    <section class="hero" aria-label="ProductHQ introduction">
-      <h1>ProductHQ — The AI workspace built by product managers for product managers.</h1>
-      <div class="tagline" aria-live="polite">Built by Product Managers, for Product Managers.</div>
-      <button class="btn-primary" id="join-waitlist-btn" aria-haspopup="dialog" aria-controls="waitlist-modal" aria-expanded="false">
-        Join the Private Beta
-      </button>
-      <button class="btn-link" id="see-how-it-works-btn" aria-haspopup="dialog" aria-controls="how-it-works-modal" aria-expanded="false">
-        See how it works →
-      </button>
+    <section class="hero">
+        <h1>Make the decision once. Explain it to everyone.</h1>
+        <p>Turn one prioritization decision into tailored explanations for leadership, engineering, sales, and CS—in seconds.</p>
+        <div class="cta-buttons">
+            <a href="#signup" class="btn btn-primary">Join the waitlist →</a>
+            <a href="#how-it-works" class="btn btn-secondary">See how it works ↓</a>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 1rem;">We're in private beta. Join 250+ PMs getting early access.</p>
     </section>
 
-    <section id="how-it-works" aria-label="How ProductHQ works" hidden>
-      <h2>How It Works</h2>
-      <div class="steps">
-        <div class="step" tabindex="0">
-          <h3>1. Connect your tools</h3>
-          <p>Link all your favorite product management tools to sync your workflow seamlessly.</p>
+    <section>
+        <div class="target-audience">
+            <h3>Built for PMs in growing product teams</h3>
+            <div class="tags">
+                <span class="tag">B2B SaaS</span>
+                <span class="tag">5–50 engineers</span>
+                <span class="tag">Multiple stakeholder groups</span>
+                <span class="tag">High communication overhead</span>
+            </div>
+            <p style="font-size: 1.2rem; margin-top: 1.5rem; font-weight: 600;">If you've ever said <strong>"I've already explained this three times"</strong>—this is for you.</p>
         </div>
-        <div class="step" tabindex="0">
-          <h3>2. Automate your processes</h3>
-          <p>Leverage AI to automate tedious tasks and get insights that matter.</p>
-        </div>
-        <div class="step" tabindex="0">
-          <h3>3. Collaborate smarter</h3>
-          <p>Work with your team efficiently using a centralized, intelligent workspace.</p>
-        </div>
-      </div>
     </section>
 
-    <section id="testimonials" aria-label="User testimonials" hidden>
-      <h2>What Early Users Say</h2>
-      <blockquote tabindex="0">
-        “ProductHQ has transformed how our team manages projects — finally a tool built by PMs who understand our needs.”
-        <footer>— Alex R., Senior Product Manager</footer>
-      </blockquote>
-      <blockquote tabindex="0">
-        “The AI-driven automation saves me hours every week. I’m excited for the full launch!”
-        <footer>— Jamie L., Product Owner</footer>
-      </blockquote>
+    <section>
+        <div class="section-header">
+            <h2>The problem isn't prioritization. It's defending it.</h2>
+            <p>Every week, PMs spend hours explaining the same decision to different audiences</p>
+        </div>
+        <div class="problem-grid">
+            <div class="problem-card">
+                <h4>Leadership</h4>
+                <p>Strategy and risk</p>
+            </div>
+            <div class="problem-card">
+                <h4>Engineering</h4>
+                <p>Technical trade-offs</p>
+            </div>
+            <div class="problem-card">
+                <h4>Sales</h4>
+                <p>Revenue impact</p>
+            </div>
+            <div class="problem-card">
+                <h4>Customer Success</h4>
+                <p>User outcomes</p>
+            </div>
+        </div>
+        <div class="problem-summary">
+            <p style="font-size: 1.2rem; font-style: italic; color: var(--text-secondary);">Same decision. Different language. Repeated endlessly.</p>
+            <p style="margin-top: 1rem; color: var(--text-secondary);">This work doesn't move the product forward—it just prevents confusion and conflict.</p>
+        </div>
     </section>
 
-    <!-- Waitlist Modal -->
-    <div class="modal-overlay" id="waitlist-modal" role="dialog" aria-modal="true" aria-labelledby="waitlist-title" tabindex="-1" hidden>
-      <div class="modal" role="document">
-        <button class="close-btn" aria-label="Close waitlist form">&times;</button>
-        <h2 id="waitlist-title">Join the Private Beta</h2>
-        <form id="waitlist-form" novalidate>
-          <label for="email-input">Email Address</label><br />
-          <input
-            type="email"
-            id="email-input"
-            name="email"
-            placeholder="you@example.com"
-            required
-            aria-describedby="email-error"
-          />
-          <div class="form-error" id="email-error" aria-live="assertive" style="display:none;"></div>
-          <br />
-          <button type="submit" class="btn-primary" id="waitlist-submit-btn">Submit</button>
-        </form>
-        <div id="waitlist-success-message" role="alert" aria-live="polite" style="display:none; margin-top: 1em; font-weight: 600; color: green;">
-          Thank you! You’ve been added to the waitlist.
+    <section>
+        <div class="section-header">
+            <h2>30 minutes with ChatGPT vs. 30 seconds with ExplainOnce</h2>
+            <p>See the difference in workflow</p>
         </div>
-      </div>
+        <div class="workflow-comparison">
+            <div class="workflow-side bad">
+                <div class="workflow-title">❌ The ChatGPT Way</div>
+                <div class="workflow-subtitle">Copy, paste, re-prompt, repeat...</div>
+                
+                <div class="chat-bubble user">
+                    <div class="chat-label">You:</div>
+                    <div class="chat-text">"Explain why we prioritized Feature A over Feature B"</div>
+                </div>
+                
+                <div class="chat-bubble assistant">
+                    <div class="chat-label">ChatGPT:</div>
+                    <div class="chat-text">[Generic paragraph with no context about your product or stakeholders]</div>
+                </div>
+                
+                <div class="chat-bubble user">
+                    <div class="chat-label">You:</div>
+                    <div class="chat-text">"Now rewrite that for the sales team focusing on revenue"</div>
+                </div>
+                
+                <div class="chat-bubble assistant">
+                    <div class="chat-label">ChatGPT:</div>
+                    <div class="chat-text">[You have to explain your entire context again...]</div>
+                </div>
+                
+                <div class="chat-bubble user">
+                    <div class="chat-label">You:</div>
+                    <div class="chat-text">"Now for engineering focusing on technical trade-offs..."</div>
+                </div>
+                
+                <div class="workflow-time">⏱️ 20-30 minutes per decision</div>
+            </div>
+            
+            <div class="workflow-side good">
+                <div class="workflow-title">✓ The ExplainOnce Way</div>
+                <div class="workflow-subtitle">One click. Four outputs. Done.</div>
+                
+                <div class="chat-bubble user">
+                    <div class="chat-label">You:</div>
+                    <div class="chat-text">Select: "Feature A prioritized over Feature B"</div>
+                </div>
+                
+                <div class="workflow-result">
+                    <div class="result-item">
+                        <span>Leadership version generated</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Engineering version generated</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Sales version generated</span>
+                    </div>
+                    <div class="result-item">
+                        <span>CS version generated</span>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem; color: var(--teal); font-size: 1.1rem;">
+                    All tailored to your product strategy, stakeholder needs, and past decisions.
+                </div>
+                
+                <div class="workflow-time">⏱️ 30 seconds</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works">
+        <div class="section-header">
+            <h2>One decision. Four explanations.</h2>
+            <p>Here's what the output actually looks like</p>
+        </div>
+        <div class="demo-grid">
+            <div class="demo-card">
+                <h4>Leadership</h4>
+                <p>"We prioritized Feature A to support Q3 retention goals and reduce churn risk, even though Feature B had higher short-term revenue potential…"</p>
+            </div>
+            <div class="demo-card">
+                <h4>Engineering</h4>
+                <p>"Feature A was chosen due to lower dependency risk and reuse of existing infrastructure, reducing delivery uncertainty…"</p>
+            </div>
+            <div class="demo-card">
+                <h4>Sales</h4>
+                <p>"This choice delays Feature B revenue but unlocks stronger expansion opportunities for accounts struggling with X…"</p>
+            </div>
+            <div class="demo-card">
+                <h4>Customer Success</h4>
+                <p>"This prioritization directly addresses the top user pain driving support tickets and churn…"</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-header">
+            <h2>What changes when you use ExplainOnce</h2>
+        </div>
+        <div class="benefits-list">
+            <div class="benefit-item">
+                <p><strong>Get 2–3 hours back every week</strong></p>
+            </div>
+            <div class="benefit-item">
+                <p><strong>Stakeholders stop asking "why wasn't my thing prioritized?"</strong></p>
+            </div>
+            <div class="benefit-item">
+                <p><strong>Roadmap stays stable</strong> (less reactive thrashing)</p>
+            </div>
+            <div class="benefit-item">
+                <p><strong>You look decisive, not defensive</strong></p>
+            </div>
+            <div class="benefit-item">
+                <p><strong>One source of truth</strong> for all product decisions</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-header">
+            <h2>Common questions</h2>
+        </div>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4>"Can't I just use templates?"</h4>
+                <p>Templates don't understand your trade-offs or remember past decisions. We do.</p>
+            </div>
+            <div class="faq-item">
+                <h4>"Is this replacing my PM judgment?"</h4>
+                <p>No. It amplifies it—without watering it down.</p>
+            </div>
+            <div class="faq-item">
+                <h4>"Do I need to integrate Jira or Notion?"</h4>
+                <p>No integrations required. Start in minutes.</p>
+            </div>
+            <div class="faq-item">
+                <h4>"How much does it cost?"</h4>
+                <p>Starting at $49/month. 14-day free trial. No credit card required.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="signup">
+        <div class="signup-section">
+            <h2>Ready to stop rewriting the same explanation?</h2>
+            <p style="font-size: 1.2rem; color: var(--text-secondary); margin-top: 1rem;">Join 250+ product managers who are getting early access.</p>
+            
+            <form class="signup-form" id="emailForm">
+                <input type="email" id="emailInput" placeholder="Enter your email" required>
+                <button type="submit" class="btn btn-primary">Get early access →</button>
+            </form>
+            
+            <div class="trust-badges">
+                <span>No credit card required</span>
+                <span>14-day free trial when we launch</span>
+                <span>Cancel anytime</span>
+            </div>
+        </div>
+    </section>
+
+    <div id="surveyModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeSurvey()">&times;</button>
+            <h2 style="color: var(--teal); margin-bottom: 1rem;">✓ You're on the list!</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Help us build the perfect solution for you:</p>
+            
+            <form class="survey-form" id="surveyForm">
+                <div class="survey-question">
+                    <label>What's your role?</label>
+                    <div class="radio-group">
+                        <label class="radio-option"><input type="radio" name="role" value="Product Manager"><span>Product Manager</span></label>
+                        <label class="radio-option"><input type="radio" name="role" value="Product Owner"><span>Product Owner</span></label>
+                        <label class="radio-option"><input type="radio" name="role" value="Head of Product"><span>Head of Product</span></label>
+                        <label class="radio-option"><input type="radio" name="role" value="Engineering Manager"><span>Engineering Manager</span></label>
+                        <label class="radio-option"><input type="radio" name="role" value="Other"><span>Other</span></label>
+                    </div>
+                </div>
+
+                <div class="survey-question">
+                    <label>Hours per week explaining decisions to stakeholders?</label>
+                    <div class="radio-group">
+                        <label class="radio-option"><input type="radio" name="hours" value="Less than 1 hour"><span>Less than 1 hour</span></label>
+                        <label class="radio-option"><input type="radio" name="hours" value="1-2 hours"><span>1-2 hours</span></label>
+                        <label class="radio-option"><input type="radio" name="hours" value="3-5 hours"><span>3-5 hours</span></label>
+                        <label class="radio-option"><input type="radio" name="hours" value="5+ hours"><span>5+ hours</span></label>
+                        <label class="radio-option"><input type="radio" name="hours" value="Not sure"><span>Not sure</span></label>
+                    </div>
+                </div>
+
+                <div class="survey-question">
+                    <label>Biggest challenge with stakeholder communication?</label>
+                    <div class="radio-group">
+                        <label class="radio-option"><input type="radio" name="challenge" value="Too much time repeating"><span>Too much time repeating myself</span></label>
+                        <label class="radio-option"><input type="radio" name="challenge" value="Different formats"><span>Different stakeholders want different formats</span></label>
+                        <label class="radio-option"><input type="radio" name="challenge" value="Staying consistent"><span>Hard to stay consistent</span></label>
+                        <label class="radio-option"><input type="radio" name="challenge" value="Understanding"><span>Stakeholders don't understand my reasoning</span></label>
+                        <label class="radio-option"><input type="radio" name="challenge" value="Other"><span>Other</span></label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit</button>
+                <button type="button" class="btn btn-secondary" style="width: 100%;" onclick="skipSurvey()">Skip →</button>
+            </form>
+        </div>
     </div>
 
-    <!-- How It Works Modal -->
-    <div class="modal-overlay" id="how-it-works-modal" role="dialog" aria-modal="true" aria-labelledby="how-it-works-title" tabindex="-1" hidden>
-      <div class="modal" role="document">
-        <button class="close-btn" aria-label="Close how it works information">&times;</button>
-        <h2 id="how-it-works-title">How ProductHQ Works</h2>
+    <div id="privacyModal" class="modal">
         <div class="modal-content">
-          <p>ProductHQ connects your product management tools, automates workflows, and helps your team collaborate smarter with AI-powered features.</p>
-          <p>Our private beta lets you experience the core features before anyone else.</p>
-          <button id="see-testimonials-btn" class="btn-link" aria-controls="testimonials" aria-expanded="false">See what early users say →</button>
+            <button class="modal-close" onclick="closeModal('privacyModal')">&times;</button>
+            <div class="legal-content">
+                <h3>Privacy Policy</h3>
+                <p><em>Last updated: December 24, 2024</em></p>
+                <h4>What we collect</h4>
+                <p>Email address, signup date, location, survey responses (optional).</p>
+                <h4>How we use it</h4>
+                <p>Product launch notifications, feature updates, feedback requests.</p>
+                <h4>We will never</h4>
+                <ul>
+                    <li>Sell your email</li>
+                    <li>Spam you</li>
+                    <li>Share without consent</li>
+                </ul>
+                <h4>Your rights</h4>
+                <p>Unsubscribe anytime. Request deletion: hello@explainonce.com</p>
+            </div>
         </div>
-      </div>
+    </div>
+
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('termsModal')">&times;</button>
+            <div class="legal-content">
+                <h3>Terms of Service</h3>
+                <p><em>Last updated: December 24, 2024</em></p>
+                <h4>Agreement</h4>
+                <p>By joining our waitlist, you agree to receive product updates and provide accurate information.</p>
+                <h4>Pre-launch notice</h4>
+                <p>This is a waitlist. Launch dates, features, and pricing subject to change.</p>
+                <h4>Limitation</h4>
+                <p>Website provided "as is". Not liable for issues from use.</p>
+                <p style="margin-top: 1.5rem;"><strong>Contact:</strong> hello@explainonce.com</p>
+            </div>
+        </div>
     </div>
 
     <footer>
-      <p>
-        &copy; 2025 ProductHQ. <a href="#" id="privacy-link">Privacy Policy</a> &amp; <a href="#" id="terms-link">Terms of Service</a>
-      </p>
+        <div class="footer-links">
+            <a href="#" onclick="openModal('privacyModal'); return false;">Privacy Policy</a>
+            <a href="#" onclick="openModal('termsModal'); return false;">Terms of Service</a>
+            <a href="mailto:hello@explainonce.com">Contact</a>
+        </div>
+        <p style="color: var(--text-secondary); font-size: 0.95rem;">© 2025 ExplainOnce. All rights reserved.</p>
     </footer>
 
-    <!-- Privacy Modal -->
-    <div class="modal-overlay" id="privacy-modal" role="dialog" aria-modal="true" aria-labelledby="privacy-title" tabindex="-1" hidden>
-      <div class="modal" role="document">
-        <button class="close-btn" aria-label="Close privacy policy">&times;</button>
-        <h2 id="privacy-title">Privacy Policy</h2>
-        <div class="modal-content">
-          <p>Your privacy is important to us. We collect minimal data to provide the best experience.</p>
-          <p>We do not sell your data. For more information, contact us.</p>
-          <button id="privacy-to-terms" class="btn-link" aria-controls="terms-modal" aria-expanded="false">View Terms of Service →</button>
-        </div>
-      </div>
-    </div>
+    <script>
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            console.log('Email:', email);
+            document.getElementById('surveyModal').classList.add('active');
+        });
 
-    <!-- Terms Modal -->
-    <div class="modal-overlay" id="terms-modal" role="dialog" aria-modal="true" aria-labelledby="terms-title" tabindex="-1" hidden>
-      <div class="modal" role="document">
-        <button class="close-btn" aria-label="Close terms of service">&times;</button>
-        <h2 id="terms-title">Terms of Service</h2>
-        <div class="modal-content">
-          <p>By using ProductHQ, you agree to our terms outlined here.</p>
-          <button id="terms-to-privacy" class="btn-link" aria-controls="privacy-modal" aria-expanded="false">View Privacy Policy →</button>
-        </div>
-      </div>
-    </div>
-  </main>
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const role = document.querySelector('input[name="role"]:checked')?.value;
+            const hours = document.querySelector('input[name="hours"]:checked')?.value;
+            const challenge = document.querySelector('input[name="challenge"]:checked')?.value;
+            console.log('Survey:', { role, hours, challenge });
+            document.getElementById('surveyModal').classList.remove('active');
+            alert('✓ Thank you! Check your email.');
+            document.getElementById('emailInput').value = '';
+        });
 
-  <script>
-    // Utility to trap focus inside modal
-    function trapFocus(element) {
-      const focusableElementsString = `
-        a[href], area[href], input:not([disabled]), select:not([disabled]), 
-        textarea:not([disabled]), button:not([disabled]), iframe, object, embed, 
-        [tabindex="0"], [contenteditable]
-      `;
-      const focusableElements = element.querySelectorAll(focusableElementsString);
-      const firstFocusable = focusableElements[0];
-      const lastFocusable = focusableElements[focusableElements.length - 1];
+        document.querySelectorAll('.radio-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+                const groupName = radio.name;
+                document.querySelectorAll(`input[name="${groupName}"]`).forEach(r => {
+                    r.closest('.radio-option').classList.remove('selected');
+                });
+                this.classList.add('selected');
+            });
+        });
 
-      function handleKey(e) {
-        if (e.key === "Tab" || e.keyCode === 9) {
-          if (e.shiftKey) {
-            if (document.activeElement === firstFocusable) {
-              e.preventDefault();
-              lastFocusable.focus();
-            }
-          } else {
-            if (document.activeElement === lastFocusable) {
-              e.preventDefault();
-              firstFocusable.focus();
-            }
-          }
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function closeSurvey() { document.getElementById('surveyModal').classList.remove('active'); }
+        function skipSurvey() {
+            document.getElementById('surveyModal').classList.remove('active');
+            alert('✓ You\'re on the list!');
+            document.getElementById('emailInput').value = '';
         }
-        if (e.key === "Escape") {
-          closeModal(element.parentElement);
-        }
-      }
-      element.addEventListener("keydown", handleKey);
 
-      // Focus first focusable element
-      firstFocusable?.focus();
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) this.classList.remove('active');
+            });
+        });
 
-      return () => {
-        element.removeEventListener("keydown", handleKey);
-      };
-    }
-
-    // Modal open/close helpers
-    const modals = {
-      waitlist: document.getElementById("waitlist-modal"),
-      howItWorks: document.getElementById("how-it-works-modal"),
-      privacy: document.getElementById("privacy-modal"),
-      terms: document.getElementById("terms-modal"),
-    };
-
-    const openButtons = {
-      waitlist: document.getElementById("join-waitlist-btn"),
-      howItWorks: document.getElementById("see-how-it-works-btn"),
-      privacy: document.getElementById("privacy-link"),
-      terms: document.getElementById("terms-link"),
-    };
-
-    let activeTrapFocusCleanup = null;
-
-    function openModal(modal) {
-      if (!modal) return;
-      modal.classList.add("active");
-      modal.removeAttribute("hidden");
-      modal.querySelector(".modal").focus();
-      modal.setAttribute("aria-hidden", "false");
-      if (activeTrapFocusCleanup) activeTrapFocusCleanup();
-      activeTrapFocusCleanup = trapFocus(modal.querySelector(".modal"));
-    }
-
-    function closeModal(modal) {
-      if (!modal) return;
-      modal.classList.remove("active");
-      modal.setAttribute("hidden", "");
-      modal.setAttribute("aria-hidden", "true");
-      if (activeTrapFocusCleanup) {
-        activeTrapFocusCleanup();
-        activeTrapFocusCleanup = null;
-      }
-    }
-
-    // Close buttons on modals
-    document.querySelectorAll(".modal .close-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const modal = btn.closest(".modal-overlay");
-        closeModal(modal);
-      });
-    });
-
-    // Open modals
-    openButtons.waitlist.addEventListener("click", () => {
-      openModal(modals.waitlist);
-      openButtons.waitlist.setAttribute("aria-expanded", "true");
-    });
-    openButtons.howItWorks.addEventListener("click", () => {
-      openModal(modals.howItWorks);
-      openButtons.howItWorks.setAttribute("aria-expanded", "true");
-    });
-    openButtons.privacy.addEventListener("click", (e) => {
-      e.preventDefault();
-      openModal(modals.privacy);
-      openButtons.privacy.setAttribute("aria-expanded", "true");
-    });
-    openButtons.terms.addEventListener("click", (e) => {
-      e.prevent
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && !href.includes('return false')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        window.scrollTo({
+                            top: target.getBoundingClientRect().top + window.pageYOffset - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
