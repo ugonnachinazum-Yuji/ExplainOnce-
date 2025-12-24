@@ -326,7 +326,7 @@
     </section>
 
     <!-- Waitlist Modal -->
-    <div class="modal-overlay" id="waitlist-modal" role="dialog" aria-modal="true" aria-labelledby="waitlist-title" tabindex="-1">
+    <div class="modal-overlay" id="waitlist-modal" role="dialog" aria-modal="true" aria-labelledby="waitlist-title" tabindex="-1" hidden>
       <div class="modal" role="document">
         <button class="close-btn" aria-label="Close waitlist form">&times;</button>
         <h2 id="waitlist-title">Join the Private Beta</h2>
@@ -362,19 +362,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Testimonials Section (shown inside modal or inline) -->
-    <section id="testimonials-inline" hidden>
-      <h2>Testimonials</h2>
-      <blockquote>
-        “ProductHQ has transformed how our team manages projects — finally a tool built by PMs who understand our needs.”
-        <footer>— Alex R., Senior Product Manager</footer>
-      </blockquote>
-      <blockquote>
-        “The AI-driven automation saves me hours every week. I’m excited for the full launch!”
-        <footer>— Jamie L., Product Owner</footer>
-      </blockquote>
-    </section>
 
     <footer>
       <p>
@@ -479,4 +466,34 @@
       if (!modal) return;
       modal.classList.remove("active");
       modal.setAttribute("hidden", "");
-      modal
+      modal.setAttribute("aria-hidden", "true");
+      if (activeTrapFocusCleanup) {
+        activeTrapFocusCleanup();
+        activeTrapFocusCleanup = null;
+      }
+    }
+
+    // Close buttons on modals
+    document.querySelectorAll(".modal .close-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const modal = btn.closest(".modal-overlay");
+        closeModal(modal);
+      });
+    });
+
+    // Open modals
+    openButtons.waitlist.addEventListener("click", () => {
+      openModal(modals.waitlist);
+      openButtons.waitlist.setAttribute("aria-expanded", "true");
+    });
+    openButtons.howItWorks.addEventListener("click", () => {
+      openModal(modals.howItWorks);
+      openButtons.howItWorks.setAttribute("aria-expanded", "true");
+    });
+    openButtons.privacy.addEventListener("click", (e) => {
+      e.preventDefault();
+      openModal(modals.privacy);
+      openButtons.privacy.setAttribute("aria-expanded", "true");
+    });
+    openButtons.terms.addEventListener("click", (e) => {
+      e.prevent
