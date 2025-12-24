@@ -1,232 +1,468 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ExplainOnce - Built with PMs, for PMs</title>
-<meta name="description" content="ExplainOnce — The AI-powered workspace built with product managers, for product managers. Join our private beta." />
-<meta name="robots" content="index, follow" />
-<link rel="icon" href="favicon.ico" />
-<style>
-  /* Reset & base */
-  * {
-    box-sizing: border-box;
-  }
-  body {
-    margin: 0;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: #121212;
-    color: #e0e0e0;
-    line-height: 1.5;
-  }
-  a {
-    color: #4ade80; /* brand green */
-    text-decoration: none;
-  }
-  a:hover,
-  a:focus {
-    text-decoration: underline;
-    outline: none;
-  }
-  button {
-    font-family: inherit;
-    cursor: pointer;
-    border: none;
-    border-radius: 6px;
-    padding: 0.7em 2em;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-  }
-  button:focus {
-    outline: 3px solid #4ade80;
-    outline-offset: 2px;
-  }
-
-  /* Sticky Header */
-  header {
-    position: sticky;
-    top: 0;
-    background: #0f172a; /* dark navy */
-    color: #4ade80;
-    padding: 1em 2em;
-    font-weight: 700;
-    font-size: 1.5rem;
-    z-index: 999;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-  }
-
-  /* Container */
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 2em 1em 4em;
-  }
-
-  /* Hero */
-  .hero {
-    text-align: center;
-    padding-top: 4em;
-  }
-  .hero h1, 
-  .hero .tagline,
-  .hero button {
-    opacity: 0;
-    transform: translateY(20px);
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-out;
-  }
-  .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 0.3em;
-    color: #4ade80; /* brand green */
-    animation-name: fadeSlideUp;
-    animation-duration: 0.7s;
-    animation-delay: 0.2s;
-  }
-  .hero .tagline {
-    font-weight: 600;
-    font-size: 1.25rem;
-    color: #a3f7b5; /* lighter brand green */
-    margin-bottom: 1.5em;
-    animation-name: fadeSlideUp;
-    animation-duration: 0.7s;
-    animation-delay: 0.5s;
-  }
-  .hero button {
-    background-color: #4ade80;
-    color: #121212;
-    box-shadow: 0 3px 10px rgba(74, 222, 128, 0.5);
-    animation-name: fadeSlideUp;
-    animation-duration: 0.7s;
-    animation-delay: 0.8s;
-  }
-  .hero button:hover,
-  .hero button:focus:not(:disabled) {
-    background-color: #22c55e;
-    box-shadow: 0 5px 14px rgba(34, 197, 94, 0.7);
-  }
-  .hero button:disabled {
-    background-color: #a8d5ac;
-    cursor: not-allowed;
-    box-shadow: none;
-  }
-
-  /* Animations */
-  @keyframes fadeSlideUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>explainOnce — Built with PMs, for PMs</title>
+  <meta name="description" content="explainOnce — The AI workspace built with product managers, for product managers. Join our private beta." />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" href="favicon.ico" />
+  <style>
+    /* Root brand colors */
+    :root {
+      --brand-blue-light: #4a90e2;
+      --brand-blue: #1e40af;
+      --brand-blue-dark: #122c6e;
+      --bg-dark: #121726;
+      --bg-darker: #0d1223;
+      --text-light: #e0e6f3;
+      --text-muted: #a0aec0;
+      --accent: var(--brand-blue-light);
+      --shadow: rgba(26, 115, 232, 0.5);
     }
-  }
 
-  /* Other sections simplified for brevity */
-  #how-it-works {
-    background: #1e293b;
-    border-radius: 8px;
-    padding: 2em 1em;
-    margin: 3em 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.7);
-    color: #cbd5e1;
-  }
-  #how-it-works h2 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 1em;
-    color: #4ade80;
-  }
-  #how-it-works .steps {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 1.5em;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-  #how-it-works .step {
-    flex: 1 1 180px;
-    background: #334155;
-    border-radius: 6px;
-    padding: 1.5em;
-    text-align: center;
-    box-shadow: inset 0 0 10px rgb(0 0 0 / 0.2);
-  }
-  #how-it-works .step h3 {
-    margin-top: 0;
-    font-size: 1.3rem;
-    color: #86efac;
-  }
-  #how-it-works .step p {
-    color: #d1fae5;
-  }
-
-  /* Footer */
-  footer {
-    text-align: center;
-    font-size: 0.9rem;
-    color: #94a3b8;
-    padding: 2em 1em;
-  }
-  footer a {
-    color: #4ade80;
-  }
-
-  /* Responsive */
-  @media (max-width: 600px) {
-    .hero h1 {
-      font-size: 2.2rem;
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
     }
-    #how-it-works .steps {
-      flex-direction: column;
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover,
+    a:focus {
+      color: var(--brand-blue-light);
+      text-decoration: underline;
+      outline: none;
+    }
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      padding: 0.7em 1.8em;
+      font-weight: 600;
+      background: var(--brand-blue);
+      color: var(--text-light);
+      box-shadow: 0 4px 10px var(--shadow);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    button:hover,
+    button:focus:not(:disabled) {
+      background-color: var(--brand-blue-light);
+      box-shadow: 0 6px 14px rgba(74,144,226,0.75);
+      outline: none;
+    }
+    button:disabled {
+      background-color: #555a6b;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    /* Container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2em 1em 4em;
+    }
+
+    /* Sticky Header */
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--bg-darker);
+      display: flex;
+      align-items: center;
       gap: 1em;
+      padding: 1em 2em;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.7);
+      z-index: 1000;
     }
-    .hero button {
+    header img.logo {
+      height: 32px;
+      width: 32px;
+      object-fit: contain;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      user-select: none;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 4em 1em 3em;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards ease-out;
+      animation-delay: 0.2s;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.5em;
+      color: var(--text-light);
+      line-height: 1.2;
+    }
+    .hero .tagline {
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 2em;
+      user-select: none;
+    }
+    .hero button + button {
+      margin-left: 1em;
+      background: none;
+      color: var(--accent);
+      font-weight: 600;
+      padding: 0.6em 1.2em;
+      box-shadow: none;
+    }
+    .hero button + button:hover,
+    .hero button + button:focus {
+      color: var(--brand-blue-light);
+      text-decoration: underline;
+      background: none;
+      box-shadow: none;
+    }
+
+    /* Sections */
+    section {
+      background: var(--bg-darker);
+      border-radius: 12px;
+      padding: 2.5em 2em;
+      margin-bottom: 3em;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s forwards ease-out;
+    }
+    section:nth-of-type(2) {
+      animation-delay: 0.4s;
+    }
+    section:nth-of-type(3) {
+      animation-delay: 0.6s;
+    }
+    section:nth-of-type(4) {
+      animation-delay: 0.8s;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 1em;
+      color: var(--accent);
+      text-align: center;
+      user-select: none;
+    }
+    section p,
+    section li {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      max-width: 700px;
+      margin: 0.5em auto 0;
+      line-height: 1.5;
+    }
+    ul {
+      list-style-type: disc;
+      padding-left: 1.5em;
+    }
+    li {
+      margin-bottom: 0.6em;
+    }
+
+    /* Steps (How it Works) */
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.8em;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .step {
+      background: var(--bg-dark);
+      border-radius: 10px;
+      padding: 1.5em 1.8em;
+      flex: 1 1 220px;
+      box-shadow: inset 0 0 8px rgba(255 255 255 / 0.07);
+      user-select: none;
+      transition: box-shadow 0.3s ease;
+    }
+    .step:hover,
+    .step:focus {
+      box-shadow: inset 0 0 16px var(--accent);
+      outline: none;
+    }
+    .step h3 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      color: var(--brand-blue-light);
+    }
+    .step p {
+      margin-top: 0.4em;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    /* Testimonials */
+    blockquote {
+      max-width: 680px;
+      margin: 1em auto 0;
+      font-style: italic;
+      color: var(--text-muted);
+      border-left: 4px solid var(--accent);
+      padding-left: 1em;
+      user-select: none;
+    }
+    blockquote footer {
+      margin-top: 0.4em;
+      font-weight: 700;
+      color: var(--accent);
+      text-align: right;
+      user-select: text;
+    }
+
+    /* Buttons in forms */
+    form {
+      max-width: 400px;
+      margin: 1em auto 0;
+      text-align: center;
+    }
+    input[type="email"] {
+      font-size: 1rem;
+      padding: 0.7em 1em;
+      border-radius: 6px;
+      border: 1.5px solid var(--brand-blue);
       width: 100%;
+      max-width: 400px;
+      transition: border-color 0.3s ease;
+      background: var(--bg-dark);
+      color: var(--text-light);
     }
-  }
-</style>
+    input[type="email"]::placeholder {
+      color: var(--text-muted);
+    }
+    input[type="email"]:focus {
+      border-color: var(--brand-blue-light);
+      outline: none;
+      box-shadow: 0 0 8px var(--brand-blue-light);
+    }
+
+    /* Form messages */
+    .form-error {
+      color: #ff6b6b;
+      font-size: 0.9rem;
+      margin-top: 0.3em;
+    }
+    .form-success {
+      color: #4ade80;
+      font-size: 1rem;
+      margin-top: 1em;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      padding: 2em 1em 3em;
+      user-select: none;
+    }
+    footer a {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    footer a:hover,
+    footer a:focus {
+      color: var(--brand-blue-light);
+      text-decoration: underline;
+      outline: none;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .steps {
+        flex-direction: column;
+      }
+      .step {
+        flex: 1 1 100%;
+      }
+      input[type="email"] {
+        max-width: 100%;
+      }
+      header {
+        padding: 1em;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
-    ExplainOnce
+    <img src="logo.svg" alt="explainOnce logo" class="logo" />
+    <h1>explainOnce</h1>
   </header>
 
   <main class="container" role="main">
-    <section class="hero" aria-label="ExplainOnce introduction">
-      <h1>ExplainOnce — The AI workspace built with product managers.</h1>
-      <div class="tagline">Built with PMs, for PMs.</div>
-      <button class="btn-primary" id="join-waitlist-btn" aria-haspopup="dialog" aria-controls="waitlist-modal" aria-expanded="false">
-        Join the Private Beta
-      </button>
+    <section class="hero" aria-label="Introduction">
+      <h1>explainOnce — Built with Product Managers, for Product Managers.</h1>
+      <p class="tagline">The AI workspace designed to save you time and boost productivity.</p>
+      <button id="join-waitlist-btn">Join the Private Beta</button>
+      <button id="scroll-how-it-works">See How It Works →</button>
+      <div id="form-message" class="form-success" style="display:none;">Thank you! You’ve been added to the waitlist.</div>
     </section>
 
-    <section id="how-it-works" aria-label="How ExplainOnce works">
+    <section id="how-it-works" aria-label="How explainOnce works">
       <h2>How It Works</h2>
       <div class="steps">
         <div class="step" tabindex="0">
           <h3>1. Connect your tools</h3>
-          <p>Link all your favorite product management tools to sync your workflow seamlessly.</p>
+          <p>Integrate your favorite product management apps seamlessly.</p>
         </div>
         <div class="step" tabindex="0">
-          <h3>2. Automate your processes</h3>
-          <p>Leverage AI to automate tedious tasks and get insights that matter.</p>
+          <h3>2. Automate workflows</h3>
+          <p>Leverage AI to handle tedious tasks and deliver insights instantly.</p>
         </div>
         <div class="step" tabindex="0">
           <h3>3. Collaborate smarter</h3>
-          <p>Work with your team efficiently using a centralized, intelligent workspace.</p>
+          <p>Work with your team effortlessly in one intelligent workspace.</p>
         </div>
       </div>
     </section>
 
-    <!-- Waitlist modal and other content would go here -->
+    <section id="comparison" aria-label="Save time with explainOnce">
+      <h2>Save Time, Work Smarter</h2>
+      <table style="width:100%; max-width:720px; margin: 0 auto; color: var(--text-light); border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 2px solid var(--accent);">
+            <th style="padding: 1em; text-align:left; color: var(--accent);">ExplainOnce</th>
+            <th style="padding: 1em; text-align:left; color: var(--accent);">Traditional PM Tools</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 1em; border-bottom: 1px solid #334766;">30 seconds per task</td>
+            <td style="padding: 1em; border-bottom: 1px solid #334766;">30 minutes per task</td>
+          </tr>
+          <tr>
+            <td style="padding: 1em; border-bottom: 1px solid #334766;">AI-powered automation</td>
+            <td style="padding: 1em; border-bottom: 1px solid #334766;">Manual, time-consuming processes</td>
+          </tr>
+          <tr>
+            <td style="padding: 1em;">Built specifically for Product Managers</td>
+            <td style="padding: 1em;">Generic tools used across many fields</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="testimonials" aria-label="User testimonials">
+      <h2>What Early Users Say</h2>
+      <blockquote tabindex="0">
+        “explainOnce has transformed how our team manages projects — finally a tool built with PMs who truly understand our needs.”
+        <footer>— Alex R., Senior Product Manager</footer>
+      </blockquote>
+      <blockquote tabindex="0">
+        “The AI automation saves me hours every week. I’m excited for the full launch!”
+        <footer>— Jamie L., Product Owner</footer>
+      </blockquote>
+    </section>
+
+    <section id="beta-invite" aria-label="Join the private beta">
+      <h2>Join Our Private Beta</h2>
+      <form id="waitlist-form" novalidate>
+        <label for="email-input" style="display:block; max-width:400px; margin: 0 auto 0.5em; user-select:none;">Enter your email to join the waitlist:</label>
+        <input
+          type="email"
+          id="email-input"
+          name="email"
+          placeholder="you@example.com"
+          required
+          aria-describedby="email-error"
+          autocomplete="email"
+        />
+        <div class="form-error" id="email-error" aria-live="assertive" style="display:none;"></div>
+        <button type="submit" style="margin-top:1em;">Notify Me</button>
+      </form>
+      <div id="form-success" class="form-success" style="display:none;">Thank you for joining the waitlist!</div>
+    </section>
   </main>
 
   <footer>
-    &copy; 2025 ExplainOnce. <a href="#">Privacy Policy</a> &amp; <a href="#">Terms of Service</a>
+    <p>
+      &copy; 2025 explainOnce. <a href="#">Privacy Policy</a> &amp; <a href="#">Terms of Service</a>
+    </p>
   </footer>
 
-<script>
-  // Add any modal or interactive scripts here (not included in this snippet)
-</script>
+  <script>
+    // Scroll to How It Works section on button click
+    document.getElementById("scroll-how-it-works").addEventListener("click", () => {
+      document.getElementById("how-it-works").scrollIntoView({ behavior: "smooth" });
+    });
+
+    // Waitlist form validation and submission (mock)
+    const form = document.getElementById("waitlist-form");
+    const emailInput = document.getElementById("email-input");
+    const errorDiv = document.getElementById("email-error");
+    const successDiv = document.getElementById("form-success");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      errorDiv.style.display = "none";
+      successDiv.style.display = "none";
+      const email = emailInput.value.trim();
+
+      if (!email) {
+        errorDiv.textContent = "Email is required.";
+        errorDiv.style.display = "block";
+        emailInput.focus();
+        return;
+      }
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        errorDiv.textContent = "Please enter a valid email address.";
+        errorDiv.style.display = "block";
+        emailInput.focus();
+        return;
+      }
+
+      // Simulate async submission
+      form.style.display = "none";
+      successDiv.style.display = "block";
+
+      // In real app, here you'd send email to backend or API
+    });
+
+    // Join waitlist button scroll and focus on form
+    document.getElementById("join-waitlist-btn").addEventListener("click", () => {
+      document.getElementById("beta-invite").scrollIntoView({ behavior: "smooth" });
+      emailInput.focus();
+    });
+  </script>
 </body>
-                                                                         </html>
+          </html>
