@@ -1,468 +1,441 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="dark">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>explainOnce — Built with PMs, for PMs</title>
-  <meta name="description" content="explainOnce — The AI workspace built with product managers, for product managers. Join our private beta." />
-  <meta name="robots" content="index, follow" />
-  <link rel="icon" href="favicon.ico" />
-  <style>
-    /* Root brand colors */
-    :root {
-      --brand-blue-light: #4a90e2;
-      --brand-blue: #1e40af;
-      --brand-blue-dark: #122c6e;
-      --bg-dark: #121726;
-      --bg-darker: #0d1223;
-      --text-light: #e0e6f3;
-      --text-muted: #a0aec0;
-      --accent: var(--brand-blue-light);
-      --shadow: rgba(26, 115, 232, 0.5);
-    }
+import React, { useState } from 'react';
+import { ArrowRight, Check, X, Clock, ChevronDown } from 'lucide-react';
 
-    /* Reset & base */
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: var(--bg-dark);
-      color: var(--text-light);
-      line-height: 1.6;
-      scroll-behavior: smooth;
-    }
-    a {
-      color: var(--accent);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    a:hover,
-    a:focus {
-      color: var(--brand-blue-light);
-      text-decoration: underline;
-      outline: none;
-    }
-    button {
-      font-family: inherit;
-      cursor: pointer;
-      border: none;
-      border-radius: 6px;
-      padding: 0.7em 1.8em;
-      font-weight: 600;
-      background: var(--brand-blue);
-      color: var(--text-light);
-      box-shadow: 0 4px 10px var(--shadow);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
-    }
-    button:hover,
-    button:focus:not(:disabled) {
-      background-color: var(--brand-blue-light);
-      box-shadow: 0 6px 14px rgba(74,144,226,0.75);
-      outline: none;
-    }
-    button:disabled {
-      background-color: #555a6b;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
+const ExplainOnceLanding = () => {
+  const [email, setEmail] = useState('');
+  const [showSurvey, setShowSurvey] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
+  const [surveyData, setSurveyData] = useState({ role: '', hours: '', challenge: '' });
 
-    /* Container */
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2em 1em 4em;
+  const handleEmailSubmit = () => {
+    if (email && email.includes('@')) {
+      setShowSurvey(true);
     }
+  };
 
-    /* Sticky Header */
-    header {
-      position: sticky;
-      top: 0;
-      background: var(--bg-darker);
-      display: flex;
-      align-items: center;
-      gap: 1em;
-      padding: 1em 2em;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.7);
-      z-index: 1000;
-    }
-    header img.logo {
-      height: 32px;
-      width: 32px;
-      object-fit: contain;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--accent);
-      user-select: none;
-    }
+  const handleSurveySubmit = () => {
+    setShowSurvey(false);
+    setTimeout(() => {
+      setShowThankYou(true);
+      setTimeout(() => setShowThankYou(false), 4000);
+    }, 100);
+  };
 
-    /* Hero */
-    .hero {
-      text-align: center;
-      padding: 4em 1em 3em;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 1s forwards ease-out;
-      animation-delay: 0.2s;
-    }
-    .hero h1 {
-      font-size: 2.8rem;
-      margin-bottom: 0.5em;
-      color: var(--text-light);
-      line-height: 1.2;
-    }
-    .hero .tagline {
-      font-weight: 600;
-      font-size: 1.25rem;
-      color: var(--text-muted);
-      margin-bottom: 2em;
-      user-select: none;
-    }
-    .hero button + button {
-      margin-left: 1em;
-      background: none;
-      color: var(--accent);
-      font-weight: 600;
-      padding: 0.6em 1.2em;
-      box-shadow: none;
-    }
-    .hero button + button:hover,
-    .hero button + button:focus {
-      color: var(--brand-blue-light);
-      text-decoration: underline;
-      background: none;
-      box-shadow: none;
-    }
-
-    /* Sections */
-    section {
-      background: var(--bg-darker);
-      border-radius: 12px;
-      padding: 2.5em 2em;
-      margin-bottom: 3em;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 1s forwards ease-out;
-    }
-    section:nth-of-type(2) {
-      animation-delay: 0.4s;
-    }
-    section:nth-of-type(3) {
-      animation-delay: 0.6s;
-    }
-    section:nth-of-type(4) {
-      animation-delay: 0.8s;
-    }
-
-    section h2 {
-      font-size: 2rem;
-      margin-bottom: 1em;
-      color: var(--accent);
-      text-align: center;
-      user-select: none;
-    }
-    section p,
-    section li {
-      font-size: 1.1rem;
-      color: var(--text-light);
-      max-width: 700px;
-      margin: 0.5em auto 0;
-      line-height: 1.5;
-    }
-    ul {
-      list-style-type: disc;
-      padding-left: 1.5em;
-    }
-    li {
-      margin-bottom: 0.6em;
-    }
-
-    /* Steps (How it Works) */
-    .steps {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.8em;
-      max-width: 720px;
-      margin: 0 auto;
-    }
-    .step {
-      background: var(--bg-dark);
-      border-radius: 10px;
-      padding: 1.5em 1.8em;
-      flex: 1 1 220px;
-      box-shadow: inset 0 0 8px rgba(255 255 255 / 0.07);
-      user-select: none;
-      transition: box-shadow 0.3s ease;
-    }
-    .step:hover,
-    .step:focus {
-      box-shadow: inset 0 0 16px var(--accent);
-      outline: none;
-    }
-    .step h3 {
-      margin-top: 0;
-      font-size: 1.3rem;
-      color: var(--brand-blue-light);
-    }
-    .step p {
-      margin-top: 0.4em;
-      font-weight: 500;
-      color: var(--text-muted);
-    }
-
-    /* Testimonials */
-    blockquote {
-      max-width: 680px;
-      margin: 1em auto 0;
-      font-style: italic;
-      color: var(--text-muted);
-      border-left: 4px solid var(--accent);
-      padding-left: 1em;
-      user-select: none;
-    }
-    blockquote footer {
-      margin-top: 0.4em;
-      font-weight: 700;
-      color: var(--accent);
-      text-align: right;
-      user-select: text;
-    }
-
-    /* Buttons in forms */
-    form {
-      max-width: 400px;
-      margin: 1em auto 0;
-      text-align: center;
-    }
-    input[type="email"] {
-      font-size: 1rem;
-      padding: 0.7em 1em;
-      border-radius: 6px;
-      border: 1.5px solid var(--brand-blue);
-      width: 100%;
-      max-width: 400px;
-      transition: border-color 0.3s ease;
-      background: var(--bg-dark);
-      color: var(--text-light);
-    }
-    input[type="email"]::placeholder {
-      color: var(--text-muted);
-    }
-    input[type="email"]:focus {
-      border-color: var(--brand-blue-light);
-      outline: none;
-      box-shadow: 0 0 8px var(--brand-blue-light);
-    }
-
-    /* Form messages */
-    .form-error {
-      color: #ff6b6b;
-      font-size: 0.9rem;
-      margin-top: 0.3em;
-    }
-    .form-success {
-      color: #4ade80;
-      font-size: 1rem;
-      margin-top: 1em;
-      font-weight: 600;
-      user-select: none;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      padding: 2em 1em 3em;
-      user-select: none;
-    }
-    footer a {
-      color: var(--accent);
-      font-weight: 600;
-    }
-    footer a:hover,
-    footer a:focus {
-      color: var(--brand-blue-light);
-      text-decoration: underline;
-      outline: none;
-    }
-
-    /* Animations */
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
-      .steps {
-        flex-direction: column;
-      }
-      .step {
-        flex: 1 1 100%;
-      }
-      input[type="email"] {
-        max-width: 100%;
-      }
-      header {
-        padding: 1em;
-      }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <img src="logo.svg" alt="explainOnce logo" class="logo" />
-    <h1>explainOnce</h1>
-  </header>
-
-  <main class="container" role="main">
-    <section class="hero" aria-label="Introduction">
-      <h1>explainOnce — Built with Product Managers, for Product Managers.</h1>
-      <p class="tagline">The AI workspace designed to save you time and boost productivity.</p>
-      <button id="join-waitlist-btn">Join the Private Beta</button>
-      <button id="scroll-how-it-works">See How It Works →</button>
-      <div id="form-message" class="form-success" style="display:none;">Thank you! You’ve been added to the waitlist.</div>
-    </section>
-
-    <section id="how-it-works" aria-label="How explainOnce works">
-      <h2>How It Works</h2>
-      <div class="steps">
-        <div class="step" tabindex="0">
-          <h3>1. Connect your tools</h3>
-          <p>Integrate your favorite product management apps seamlessly.</p>
+  return (
+    <div className="min-h-screen bg-slate-900 text-slate-100" style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif" }}>
+      
+      {/* Header */}
+      <header className="fixed top-0 w-full bg-slate-900/80 backdrop-blur-md border-b border-teal-400/10 z-50">
+        <div className="max-w-7xl mx-auto px-8 py-4">
+          <div className="flex items-center gap-3">
+            <svg width="40" height="40" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="10" fill="#1E3A8A" />
+              
+              <line x1="50" y1="50" x2="25" y2="28" stroke="#3B82F6" strokeWidth="3" />
+              <circle cx="25" cy="28" r="6" fill="#3B82F6" />
+              
+              <line x1="50" y1="50" x2="75" y2="28" stroke="#FDE047" strokeWidth="3" />
+              <circle cx="75" cy="28" r="6" fill="#FDE047" />
+              
+              <line x1="50" y1="50" x2="78" y2="50" stroke="#5EEAD4" strokeWidth="3" />
+              <circle cx="78" cy="50" r="6" fill="#5EEAD4" />
+              
+              <line x1="50" y1="50" x2="25" y2="72" stroke="#60A5FA" strokeWidth="3" />
+              <circle cx="25" cy="72" r="6" fill="#60A5FA" />
+              
+              <line x1="50" y1="50" x2="50" y2="78" stroke="#1E3A8A" strokeWidth="3" />
+              <circle cx="50" cy="78" r="6" fill="#1E3A8A" />
+            </svg>
+            <div className="flex items-baseline gap-1">
+              <span className="text-2xl font-bold text-slate-100">Explain</span>
+              <span className="text-2xl font-bold text-teal-400">Once</span>
+            </div>
+            <span className="ml-3 text-sm text-slate-400">One decision. Every audience.</span>
+          </div>
         </div>
-        <div class="step" tabindex="0">
-          <h3>2. Automate workflows</h3>
-          <p>Leverage AI to handle tedious tasks and deliver insights instantly.</p>
+      </header>
+
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 px-8">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-6xl font-extrabold mb-6 leading-tight" style={{ background: 'linear-gradient(135deg, #F1F5F9 0%, #5EEAD4 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            Make the decision once.<br />Explain it to everyone.
+          </h1>
+          <p className="text-xl text-slate-300 mb-8 leading-relaxed max-w-2xl mx-auto">
+            Turn one prioritization decision into tailored explanations for leadership, engineering, sales, and CS—in seconds.
+          </p>
+          <div className="flex gap-4 justify-center mb-4">
+            <button onClick={() => document.getElementById('signup').scrollIntoView({ behavior: 'smooth' })} className="bg-teal-400 text-slate-900 px-8 py-4 rounded-xl font-semibold text-lg flex items-center gap-2 hover:-translate-y-0.5 transition-all shadow-lg" style={{ boxShadow: '0 4px 20px rgba(94, 234, 212, 0.3)' }}>
+              Join the waitlist <ArrowRight size={20} />
+            </button>
+            <button onClick={() => document.getElementById('demo').scrollIntoView({ behavior: 'smooth' })} className="border-2 border-teal-400 text-teal-400 px-8 py-4 rounded-xl font-semibold text-lg flex items-center gap-2 hover:bg-teal-400/10 hover:-translate-y-0.5 transition-all">
+              See how it works <ChevronDown size={20} />
+            </button>
+          </div>
+          <p className="text-sm text-slate-400">We're in private beta. Join 250+ PMs getting early access.</p>
         </div>
-        <div class="step" tabindex="0">
-          <h3>3. Collaborate smarter</h3>
-          <p>Work with your team effortlessly in one intelligent workspace.</p>
+      </section>
+
+      {/* Target Audience */}
+      <section className="py-16 px-8 bg-slate-800/50">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-6">Built for PMs in growing product teams</h2>
+          <div className="flex flex-wrap gap-3 justify-center mb-6">
+            {['B2B SaaS', '5–50 engineers', 'Multiple stakeholder groups', 'High communication overhead'].map(tag => (
+              <span key={tag} className="px-6 py-2 rounded-full text-sm font-semibold" style={{ background: 'rgba(94, 234, 212, 0.1)', border: '1px solid rgba(94, 234, 212, 0.3)', color: '#5EEAD4' }}>
+                {tag}
+              </span>
+            ))}
+          </div>
+          <p className="text-lg text-slate-300">
+            If you've ever said <span className="text-teal-400 font-semibold">"I've already explained this three times"</span>—this is for you.
+          </p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="comparison" aria-label="Save time with explainOnce">
-      <h2>Save Time, Work Smarter</h2>
-      <table style="width:100%; max-width:720px; margin: 0 auto; color: var(--text-light); border-collapse: collapse;">
-        <thead>
-          <tr style="border-bottom: 2px solid var(--accent);">
-            <th style="padding: 1em; text-align:left; color: var(--accent);">ExplainOnce</th>
-            <th style="padding: 1em; text-align:left; color: var(--accent);">Traditional PM Tools</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding: 1em; border-bottom: 1px solid #334766;">30 seconds per task</td>
-            <td style="padding: 1em; border-bottom: 1px solid #334766;">30 minutes per task</td>
-          </tr>
-          <tr>
-            <td style="padding: 1em; border-bottom: 1px solid #334766;">AI-powered automation</td>
-            <td style="padding: 1em; border-bottom: 1px solid #334766;">Manual, time-consuming processes</td>
-          </tr>
-          <tr>
-            <td style="padding: 1em;">Built specifically for Product Managers</td>
-            <td style="padding: 1em;">Generic tools used across many fields</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+      {/* Problem Section */}
+      <section className="py-20 px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-5xl font-bold mb-4">The problem isn't prioritization.<br />It's defending it.</h2>
+            <p className="text-xl text-slate-300">Every week, PMs spend hours explaining the same decision to different audiences</p>
+          </div>
+          
+          <div className="grid md:grid-cols-4 gap-6 mb-12">
+            {[
+              { title: 'Leadership', subtitle: 'Strategy and risk' },
+              { title: 'Engineering', subtitle: 'Technical trade-offs' },
+              { title: 'Sales', subtitle: 'Revenue impact' },
+              { title: 'Customer Success', subtitle: 'User outcomes' }
+            ].map(card => (
+              <div key={card.title} className="p-8 rounded-2xl border hover:-translate-y-1 transition-all" style={{ background: 'rgba(30, 41, 59, 0.5)', border: '1px solid rgba(94, 234, 212, 0.1)' }}>
+                <h3 className="text-2xl font-bold mb-2 text-teal-400">{card.title}</h3>
+                <p className="text-slate-300">{card.subtitle}</p>
+              </div>
+            ))}
+          </div>
 
-    <section id="testimonials" aria-label="User testimonials">
-      <h2>What Early Users Say</h2>
-      <blockquote tabindex="0">
-        “explainOnce has transformed how our team manages projects — finally a tool built with PMs who truly understand our needs.”
-        <footer>— Alex R., Senior Product Manager</footer>
-      </blockquote>
-      <blockquote tabindex="0">
-        “The AI automation saves me hours every week. I’m excited for the full launch!”
-        <footer>— Jamie L., Product Owner</footer>
-      </blockquote>
-    </section>
+          <div className="p-8 rounded-2xl text-center" style={{ background: 'rgba(30, 41, 59, 0.8)', border: '1px solid rgba(94, 234, 212, 0.2)' }}>
+            <p className="text-2xl font-bold mb-2">Same decision. Different language. Repeated endlessly.</p>
+            <p className="text-slate-300">This work doesn't move the product forward—it just prevents confusion and conflict.</p>
+          </div>
+        </div>
+      </section>
 
-    <section id="beta-invite" aria-label="Join the private beta">
-      <h2>Join Our Private Beta</h2>
-      <form id="waitlist-form" novalidate>
-        <label for="email-input" style="display:block; max-width:400px; margin: 0 auto 0.5em; user-select:none;">Enter your email to join the waitlist:</label>
-        <input
-          type="email"
-          id="email-input"
-          name="email"
-          placeholder="you@example.com"
-          required
-          aria-describedby="email-error"
-          autocomplete="email"
-        />
-        <div class="form-error" id="email-error" aria-live="assertive" style="display:none;"></div>
-        <button type="submit" style="margin-top:1em;">Notify Me</button>
-      </form>
-      <div id="form-success" class="form-success" style="display:none;">Thank you for joining the waitlist!</div>
-    </section>
-  </main>
+      {/* Comparison Section */}
+      <section className="py-20 px-8 bg-slate-800/30">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-5xl font-bold mb-4">30 minutes with AI prompting<br />vs. 30 seconds with ExplainOnce</h2>
+            <p className="text-xl text-slate-300">See the difference in workflow</p>
+          </div>
 
-  <footer>
-    <p>
-      &copy; 2025 explainOnce. <a href="#">Privacy Policy</a> &amp; <a href="#">Terms of Service</a>
-    </p>
-  </footer>
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Left - Bad Way */}
+            <div className="p-10 rounded-3xl" style={{ background: 'rgba(239, 68, 68, 0.05)', border: '2px solid rgba(239, 68, 68, 0.3)' }}>
+              <div className="flex items-center gap-2 mb-6">
+                <X className="text-red-400" size={24} />
+                <h3 className="text-2xl font-bold">The AI Prompting Way</h3>
+              </div>
+              <p className="text-slate-400 mb-6">Copy, paste, re-prompt, repeat...</p>
+              
+              <div className="space-y-4">
+                <div className="p-4 rounded-xl" style={{ background: 'rgba(15, 23, 42, 0.8)', borderLeft: '3px solid #3B82F6' }}>
+                  <div className="text-xs text-slate-400 mb-1">You</div>
+                  <p className="text-sm">"Explain why we prioritized Feature A over Feature B"</p>
+                </div>
+                <div className="p-4 rounded-xl ml-4" style={{ background: 'rgba(15, 23, 42, 0.8)', borderLeft: '3px solid #94A3B8' }}>
+                  <div className="text-xs text-slate-400 mb-1">AI</div>
+                  <p className="text-sm text-slate-400">[Generic paragraph with no context about your product or stakeholders]</p>
+                </div>
+                <div className="p-4 rounded-xl" style={{ background: 'rgba(15, 23, 42, 0.8)', borderLeft: '3px solid #3B82F6' }}>
+                  <div className="text-xs text-slate-400 mb-1">You</div>
+                  <p className="text-sm">"Now rewrite that for the sales team focusing on revenue"</p>
+                </div>
+                <div className="p-4 rounded-xl ml-4" style={{ background: 'rgba(15, 23, 42, 0.8)', borderLeft: '3px solid #94A3B8' }}>
+                  <div className="text-xs text-slate-400 mb-1">AI</div>
+                  <p className="text-sm text-slate-400">[You have to explain your entire context again...]</p>
+                </div>
+                <div className="p-4 rounded-xl" style={{ background: 'rgba(15, 23, 42, 0.8)', borderLeft: '3px solid #3B82F6' }}>
+                  <div className="text-xs text-slate-400 mb-1">You</div>
+                  <p className="text-sm">"Now for engineering focusing on technical trade-offs..."</p>
+                </div>
+              </div>
 
-  <script>
-    // Scroll to How It Works section on button click
-    document.getElementById("scroll-how-it-works").addEventListener("click", () => {
-      document.getElementById("how-it-works").scrollIntoView({ behavior: "smooth" });
-    });
+              <div className="mt-6 px-4 py-2 rounded-lg inline-flex items-center gap-2 bg-red-900/30 text-red-300">
+                <Clock size={16} />
+                <span className="font-semibold">20-30 minutes per decision</span>
+              </div>
+            </div>
 
-    // Waitlist form validation and submission (mock)
-    const form = document.getElementById("waitlist-form");
-    const emailInput = document.getElementById("email-input");
-    const errorDiv = document.getElementById("email-error");
-    const successDiv = document.getElementById("form-success");
+            {/* Right - Good Way */}
+            <div className="p-10 rounded-3xl" style={{ background: 'rgba(94, 234, 212, 0.05)', border: '2px solid #5EEAD4' }}>
+              <div className="flex items-center gap-2 mb-6">
+                <Check className="text-teal-400" size={24} />
+                <h3 className="text-2xl font-bold">The ExplainOnce Way</h3>
+              </div>
+              <p className="text-slate-400 mb-6">One click. Four outputs. Done.</p>
+              
+              <div className="p-4 rounded-xl mb-6" style={{ background: 'rgba(15, 23, 42, 0.8)', borderLeft: '3px solid #5EEAD4' }}>
+                <div className="text-xs text-slate-400 mb-1">You</div>
+                <p className="text-sm">Select: "Feature A prioritized over Feature B"</p>
+              </div>
 
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      errorDiv.style.display = "none";
-      successDiv.style.display = "none";
-      const email = emailInput.value.trim();
+              <div className="space-y-3 mb-6">
+                {['Leadership version generated', 'Engineering version generated', 'Sales version generated', 'CS version generated'].map(item => (
+                  <div key={item} className="flex items-center gap-3 p-3 rounded-lg" style={{ background: 'rgba(94, 234, 212, 0.05)', borderLeft: '3px solid #5EEAD4' }}>
+                    <Check className="text-teal-400 flex-shrink-0" size={20} />
+                    <span className="text-sm">{item}</span>
+                  </div>
+                ))}
+              </div>
 
-      if (!email) {
-        errorDiv.textContent = "Email is required.";
-        errorDiv.style.display = "block";
-        emailInput.focus();
-        return;
-      }
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(email)) {
-        errorDiv.textContent = "Please enter a valid email address.";
-        errorDiv.style.display = "block";
-        emailInput.focus();
-        return;
-      }
+              <p className="text-sm text-slate-400 mb-6">All tailored to your product strategy, stakeholder needs, and past decisions.</p>
 
-      // Simulate async submission
-      form.style.display = "none";
-      successDiv.style.display = "block";
+              <div className="px-4 py-2 rounded-lg inline-flex items-center gap-2 bg-teal-900/30 text-teal-300">
+                <Clock size={16} />
+                <span className="font-semibold">30 seconds</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      // In real app, here you'd send email to backend or API
-    });
+      {/* Demo Section */}
+      <section id="demo" className="py-20 px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-5xl font-bold mb-4">One decision. Four explanations.</h2>
+            <p className="text-xl text-slate-300">Here's what the output actually looks like</p>
+          </div>
 
-    // Join waitlist button scroll and focus on form
-    document.getElementById("join-waitlist-btn").addEventListener("click", () => {
-      document.getElementById("beta-invite").scrollIntoView({ behavior: "smooth" });
-      emailInput.focus();
-    });
-  </script>
-</body>
-          </html>
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              { title: 'Leadership', text: '"We prioritized Feature A to support Q3 retention goals and reduce churn risk, even though Feature B had higher short-term revenue potential…"' },
+              { title: 'Engineering', text: '"Feature A was chosen due to lower dependency risk and reuse of existing infrastructure, reducing delivery uncertainty…"' },
+              { title: 'Sales', text: '"This choice delays Feature B revenue but unlocks stronger expansion opportunities for accounts struggling with X…"' },
+              { title: 'Customer Success', text: '"This prioritization directly addresses the top user pain driving support tickets and churn…"' }
+            ].map(demo => (
+              <div key={demo.title} className="p-8 rounded-2xl" style={{ background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.8) 100%)', border: '1px solid rgba(94, 234, 212, 0.2)', borderLeft: '4px solid #5EEAD4' }}>
+                <h3 className="text-xl font-bold mb-3 text-teal-400">{demo.title}</h3>
+                <p className="text-slate-300 italic">{demo.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits */}
+      <section className="py-20 px-8 bg-slate-800/30">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-5xl font-bold text-center mb-12">What changes when you use ExplainOnce</h2>
+          <div className="space-y-4">
+            {[
+              'Get 2–3 hours back every week',
+              'Stakeholders stop asking "why wasn\'t my thing prioritized?"',
+              'Roadmap stays stable (less reactive thrashing)',
+              'You look decisive, not defensive',
+              'One source of truth for all product decisions'
+            ].map(benefit => (
+              <div key={benefit} className="flex items-center gap-4 p-6 rounded-xl hover:translate-x-2 transition-all" style={{ background: 'rgba(30, 41, 59, 0.5)', border: '1px solid rgba(94, 234, 212, 0.1)' }}>
+                <Check className="text-teal-400 flex-shrink-0" size={24} />
+                <span className="text-lg">{benefit}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-20 px-8">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-5xl font-bold text-center mb-12">Common questions</h2>
+          <div className="space-y-6">
+            {[
+              { q: 'Can\'t I just use templates?', a: 'Templates don\'t understand your trade-offs or remember past decisions. We do.' },
+              { q: 'Is this replacing my PM judgment?', a: 'No. It amplifies it—without watering it down.' },
+              { q: 'Do I need to integrate Jira or Notion?', a: 'No integrations required. Start in minutes.' },
+              { q: 'How much does it cost?', a: 'Starting at $49/month. 14-day free trial. No credit card required.' }
+            ].map(faq => (
+              <div key={faq.q} className="p-8 rounded-2xl" style={{ background: 'rgba(30, 41, 59, 0.5)', border: '1px solid rgba(94, 234, 212, 0.1)' }}>
+                <h3 className="text-xl font-bold mb-3 text-teal-400">{faq.q}</h3>
+                <p className="text-slate-300">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Email Signup */}
+      <section id="signup" className="py-20 px-8" style={{ background: 'radial-gradient(circle, rgba(94, 234, 212, 0.15) 0%, transparent 70%)' }}>
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-5xl font-bold mb-4">Ready to stop rewriting<br />the same explanation?</h2>
+          <p className="text-xl text-slate-300 mb-8">Join 250+ product managers who are getting early access.</p>
+          
+          <div className="flex gap-3 mb-4">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              className="flex-1 px-6 py-4 rounded-xl text-lg"
+              style={{ background: 'rgba(15, 23, 42, 0.8)', border: '2px solid rgba(94, 234, 212, 0.3)', color: '#F1F5F9' }}
+            />
+            <button onClick={handleEmailSubmit} className="bg-teal-400 text-slate-900 px-8 py-4 rounded-xl font-semibold text-lg flex items-center gap-2 hover:-translate-y-0.5 transition-all" style={{ boxShadow: '0 4px 20px rgba(94, 234, 212, 0.3)' }}>
+              Get early access <ArrowRight size={20} />
+            </button>
+          </div>
+
+          <div className="flex gap-6 justify-center text-sm text-slate-400">
+            <span className="flex items-center gap-1"><Check size={16} className="text-teal-400" /> No credit card required</span>
+            <span className="flex items-center gap-1"><Check size={16} className="text-teal-400" /> 14-day free trial</span>
+            <span className="flex items-center gap-1"><Check size={16} className="text-teal-400" /> Cancel anytime</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 px-8 border-t border-slate-700">
+        <div className="max-w-6xl mx-auto text-center text-sm text-slate-400 space-y-3">
+          <div className="flex gap-6 justify-center">
+            <button onClick={() => setShowPrivacy(true)} className="hover:text-teal-400 transition-colors">Privacy Policy</button>
+            <button onClick={() => setShowTerms(true)} className="hover:text-teal-400 transition-colors">Terms of Service</button>
+            <a href="mailto:hello@explainonce.com" className="hover:text-teal-400 transition-colors">Contact</a>
+          </div>
+          <p>© 2025 ExplainOnce. All rights reserved.</p>
+          <p>Built for product managers in B2B SaaS companies with 5-50 engineers</p>
+        </div>
+      </footer>
+
+      {/* Survey Modal */}
+      {showSurvey && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto" style={{ background: 'rgba(0, 0, 0, 0.8)', backdropFilter: 'blur(5px)' }} onClick={() => setShowSurvey(false)}>
+          <div className="max-w-2xl w-full p-12 rounded-3xl relative my-8" style={{ background: '#1E293B', border: '1px solid rgba(94, 234, 212, 0.2)', boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)', maxHeight: '90vh' }} onClick={e => e.stopPropagation()}>
+            <button onClick={() => setShowSurvey(false)} className="absolute top-6 right-6 text-slate-400 hover:text-slate-100 text-2xl">&times;</button>
+            
+            <div className="text-center mb-8">
+              <div className="text-4xl mb-2">✓</div>
+              <h3 className="text-3xl font-bold mb-2">You're on the list!</h3>
+              <p className="text-slate-300">Help us build the perfect solution for you (optional):</p>
+            </div>
+
+            <div className="space-y-6 overflow-y-auto" style={{ maxHeight: 'calc(90vh - 250px)' }}>
+              <div>
+                <label className="block mb-3 font-semibold">What's your role?</label>
+                <div className="space-y-2">
+                  {['Product Manager', 'Product Owner', 'Head of Product', 'Engineering Manager', 'Other'].map(role => (
+                    <button key={role} onClick={() => setSurveyData({...surveyData, role})} className="w-full p-4 rounded-lg text-left hover:bg-teal-400/5 transition-all" style={{ background: surveyData.role === role ? 'rgba(94, 234, 212, 0.1)' : 'rgba(15, 23, 42, 0.5)', border: surveyData.role === role ? '2px solid #5EEAD4' : '2px solid transparent' }}>
+                      {role}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block mb-3 font-semibold">Hours/week explaining prioritization?</label>
+                <div className="space-y-2">
+                  {['Less than 1 hour', '1-2 hours', '3-5 hours', '5+ hours', 'Not sure'].map(hours => (
+                    <button key={hours} onClick={() => setSurveyData({...surveyData, hours})} className="w-full p-4 rounded-lg text-left hover:bg-teal-400/5 transition-all" style={{ background: surveyData.hours === hours ? 'rgba(94, 234, 212, 0.1)' : 'rgba(15, 23, 42, 0.5)', border: surveyData.hours === hours ? '2px solid #5EEAD4' : '2px solid transparent' }}>
+                      {hours}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label className="block mb-3 font-semibold">What's your biggest challenge?</label>
+                <div className="space-y-2">
+                  {['Too much time spent repeating myself', 'Different stakeholders want different formats', 'Hard to stay consistent across explanations', 'Stakeholders don\'t understand my reasoning', 'Other'].map(challenge => (
+                    <button key={challenge} onClick={() => setSurveyData({...surveyData, challenge})} className="w-full p-4 rounded-lg text-left hover:bg-teal-400/5 transition-all" style={{ background: surveyData.challenge === challenge ? 'rgba(94, 234, 212, 0.1)' : 'rgba(15, 23, 42, 0.5)', border: surveyData.challenge === challenge ? '2px solid #5EEAD4' : '2px solid transparent' }}>
+                      {challenge}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-3 pt-6 mt-6 border-t border-slate-700">
+              <button onClick={handleSurveySubmit} className="flex-1 bg-teal-400 text-slate-900 px-8 py-4 rounded-xl font-semibold hover:-translate-y-0.5 transition-all" style={{ boxShadow: '0 4px 20px rgba(94, 234, 212, 0.3)' }}>
+                Submit
+              </button>
+              <button onClick={handleSurveySubmit} className="flex-1 border-2 border-teal-400 text-teal-400 px-8 py-4 rounded-xl font-semibold hover:bg-teal-400/10 transition-all">
+                Skip →
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Thank You Modal */}
+      {showThankYou && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0, 0, 0, 0.8)', backdropFilter: 'blur(5px)' }}>
+          <div className="max-w-md w-full p-12 rounded-3xl text-center" style={{ background: '#1E293B', border: '2px solid #5EEAD4', boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)' }}>
+            <div className="text-6xl mb-4">🎉</div>
+            <h3 className="text-3xl font-bold mb-3">Thank you!</h3>
+            <p className="text-xl text-slate-300 mb-2">You're all set.</p>
+            <p className="text-slate-400">Check your email for updates.</p>
+          </div>
+        </div>
+      )}
+
+      {/* Privacy Modal */}
+      {showPrivacy && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto" style={{ background: 'rgba(0, 0, 0, 0.8)', backdropFilter: 'blur(5px)' }} onClick={() => setShowPrivacy(false)}>
+          <div className="max-w-2xl w-full p-12 rounded-3xl relative my-8" style={{ background: '#1E293B', border: '1px solid rgba(94, 234, 212, 0.2)' }} onClick={e => e.stopPropagation()}>
+            <button onClick={() => setShowPrivacy(false)} className="absolute top-6 right-6 text-slate-400 hover:text-slate-100 text-2xl">&times;</button>
+            <h2 className="text-3xl font-bold mb-4">Privacy Policy</h2>
+            <p className="text-sm text-slate-400 mb-6">Last updated: December 27, 2024</p>
+            <div className="space-y-4 text-slate-300">
+              <div>
+                <h3 className="font-bold text-lg mb-2">What we collect</h3>
+                <p>Email address, signup date, general location, and survey responses (if provided).</p>
+              </div>
+              <div>
+                <h3 className="font-bold text-lg mb-2">How we use it</h3>
+                <p>Product launch notifications, feature updates, and occasional feedback requests.</p>
+              </div>
+              <div>
+                <h3 className="font-bold text-lg mb-2">We will never</h3>
+                <p>Sell your email, spam you, or share your data without consent.</p>
+              </div>
+              <div>
+                <h3 className="font-bold text-lg mb-2">Your rights</h3>
+                <p>Unsubscribe anytime. Request data deletion: hello@explainonce.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Terms Modal */}
+      {showTerms && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto" style={{ background: 'rgba(0, 0, 0, 0.8)', backdropFilter: 'blur(5px)' }} onClick={() => setShowTerms(false)}>
+          <div className="max-w-2xl w-full p-12 rounded-3xl relative my-8" style={{ background: '#1E293B', border: '1px solid rgba(94, 234, 212, 0.2)' }} onClick={e => e.stopPropagation()}>
+            <button onClick={() => setShowTerms(false)} className="absolute top-6 right-6 text-slate-400 hover:text-slate-100 text-2xl">&times;</button>
+            <h2 className="text-3xl font-bold mb-4">Terms of Service</h2>
+            <p className="text-sm text-slate-400 mb-6">Last updated: December 27, 2024</p>
+            <div className="space-y-4 text-slate-300">
+              <div>
+                <h3 className="font-bold text-lg mb-2">Agreement</h3>
+                <p>By joining our waitlist, you agree to receive product updates and use this website lawfully.</p>
+              </div>
+              <div>
+                <h3 className="font-bold text-lg mb-2">Pre-launch notice</h3>
+                <p>This is a pre-launch waitlist. Launch dates, features, and pricing are subject to change.</p>
+              </div>
+              <div>
+                <h3 className="font-bold text-lg mb-2">Your data</h3>
+                <p>See our Privacy Policy. You can unsubscribe or delete your data anytime.</p>
+              </div>
+              <p className="text-sm">Contact: hello@explainonce.com</p>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ExplainOnceLanding;
